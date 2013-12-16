@@ -1,0 +1,109 @@
+" ----------------------------------------------------------------------------------
+" github.com/mattwestrik/.files 
+" ----------------------------------------------------------------------------------
+
+call pathogen#infect()
+call pathogen#helptags()
+
+set nocompatible 
+
+" relative line numbering in normal mode
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+filetype plugin indent on 
+ 
+syntax on
+set number
+set modifiable
+
+set spell
+set hlsearch
+set autoindent
+set history=1000
+
+set tabstop=4 
+set softtabstop=4 
+set shiftwidth=4 
+set expandtab 
+set smarttab
+
+set background=dark
+colorscheme solarized
+
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
+
+set smartcase
+
+
+" REMAPPINGS & other commands
+" ----------------------------------------------------------------------------------
+
+" swap semicolon & colon in normal mode
+nnoremap ; :
+
+" jk to esc 
+inoremap jk <esc>
+
+" navigate through paragraphs by visual line instead of literal line
+nnoremap j gj
+nnoremap k gk
+
+
+" LEADER commands
+" ----------------------
+
+" make leader be a comma
+let mapleader=","
+
+" css property sorting
+nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" html tag folding
+nnoremap <leader>ft Vatzf
+
+" strip trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" reselect just-pasted text
+nnoremap <leader>v V`]
+
+" open .vimrc quickly in split window
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+
+
+" PLUGINS
+" ----------------------------------------------------------------------------------
+
+" VIM-LATEX
+" ------------------------------
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: This enables automatic indentation as you type.
+filetype indent on
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+set sw=2
+
+
+
+
+" CTRL-P
+" ------------------------------
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+
+
