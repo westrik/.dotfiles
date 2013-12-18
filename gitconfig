@@ -1,0 +1,17 @@
+[user]
+	name = Matthew Westrik
+	email = m@ttwestrik.com
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	ci = commit
+	st = status
+	co = checkout
+	pom = push origin master
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = vim
+[help]
+	autocorrect = 1
+[push]
+	default = simple
+
