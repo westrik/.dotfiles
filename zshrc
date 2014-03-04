@@ -1,11 +1,11 @@
-". ~/.zshrc"
 
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.oh-my-zsh
-source $ZSH/oh-my-zsh.sh
 plugins=(git)
+ZSH_THEME="gallois"
+source $ZSH/oh-my-zsh.sh
 
-ZSH_THEME="pygmalion"
+bindkey -v
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/projects
@@ -17,11 +17,8 @@ then
 fi
 
 # initialize autocomplete here, otherwise functions won't be loaded
-# autoload -U compinit
-# compinit
-
-
-
+autoload -U compinit
+compinit
 
 
 
@@ -111,16 +108,27 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 # MISCELLANEOUS
 alias reload!='. ~/.zshrc'
 alias sasquatch='sass --watch sass:compiled --style compact'
-alias ggo='alias gitgo="git add * && git commit -a && git push origin master"'
-alias ssh-aws='ssh ec2-user@54.213.96.38 -i ~/.ssh/mattw.pem' #good thing i used ssh keys huh otherwise you'd be stealin
-alias cis='cd ~/Academic/CIS*2500/Projects'
-alias _p="cd ~/Projects"
-fliptable() { echo "（╯°□°）╯ ┻━┻"; }
+alias gitgo="git add * && git commit -a && git push origin master"
+alias ssh-charmander='ssh ec2-user@54.213.96.38 -i ~/.ssh/mattw.pem' #good thing i used ssh keys huh otherwise you'd be stealin
+alias ssh-clefairy='ssh root@162.243.43.222'
+
+alias 2500='cd ~/Academic/CIS\ 2500/'
+alias p='cd ~/Projects/'
+alias 2c='cd ~/Academic/CIS\ 2500/coursework/'
 
 
 # PATH
+export GOPATH=$HOME/go
+export NODE_PATH=`pwd`/Shared/:`pwd`/Node/:`pwd`/Node/shell/:`pwd`/Node/view/
+
+export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:/usr/pkg/man:$MANPATH"
+
 export PATH="./bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$HOME/.sfs:$ZSH/bin:$PATH"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="/usr/pkg/bin:/usr/pkg/sbin:$PATH"
+export PATH="$HOME/Library/Haskell/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$PATH"
+export PATH=$GOPATH/bin:$PATH
 
-export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM

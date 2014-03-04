@@ -1,5 +1,5 @@
 " ----------------------------------------------------------------------------------
-" github.com/mattwestrik/.files 
+" github.com/mattwestrik/dotfiles 
 " ----------------------------------------------------------------------------------
 
 call pathogen#infect()
@@ -79,7 +79,7 @@ map <leader>l :w\|:silent !reload-chrome<cr>
 vnoremap <leader>ib :!align<cr>
 
 " map ,V to paste without having to switch indent modes
-map <leader>V :r !pbpaste
+nnoremap <leader>V :r !pbpaste
 
 " make leader be a comma
 let mapleader=","
