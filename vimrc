@@ -31,6 +31,19 @@ set smarttab
 set background=dark
 colorscheme solarized
 
+let g:airline_powerline_fonts = 1
+set laststatus=2 "have airline open all the time
+let g:bufferline_echo = 0 "don't show auto echoing from vim
+set noshowmode
+if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+  endif
+  let g:airline_symbols.space = "\ua0"
+
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+
 set wrap
 set textwidth=79
 set formatoptions=qrn1
