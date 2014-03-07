@@ -1,18 +1,18 @@
 " ----------------------------------------------------------------------------------
-" github.com/mattwestrik/dotfiles 
+" github.com/mattwestrik/dotfiles
 " ----------------------------------------------------------------------------------
 
 call pathogen#infect()
 call pathogen#helptags()
 
-set nocompatible 
+set nocompatible
 
 " relative line numbering in normal mode
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
-filetype plugin indent on 
- 
+filetype plugin indent on
+
 syntax on
 set number
 set modifiable
@@ -22,10 +22,10 @@ set hlsearch
 set autoindent
 set history=1000
 
-set tabstop=4 
-set softtabstop=4 
-set shiftwidth=4 
-set expandtab 
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 set smarttab
 
 set background=dark
@@ -111,6 +111,7 @@ nnoremap <leader>v V`]
 
 " open .vimrc quickly in split window
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>egv <C-w><C-v><C-l>:e ~/.gvimrc<cr>
 
 
 " STATUS LINE
@@ -158,7 +159,7 @@ augroup vimrcEx
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber,latex set ai sw=2 sts=2 et
   autocmd FileType python,c set sw=4 sts=4 et
 
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
+  autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
