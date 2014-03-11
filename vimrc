@@ -22,11 +22,18 @@ set hlsearch
 set autoindent
 set history=1000
 
+set nobackup " backups are annoying
+set writebackup " temp backup during write
+set undodir=~/.vim/undo " persistent undo storage
+set undofile " persistent undo on
+
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
+set listchars=tab:↹·,extends:⇉,precedes:⇇,nbsp:␠,trail:␠,nbsp:␣
+set showbreak=↳\ " shown at the start of a wrapped line
 
 set background=dark
 colorscheme solarized
@@ -40,17 +47,16 @@ if !exists('g:airline_symbols')
   endif
   let g:airline_symbols.space = "\ua0"
 
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-
 set wrap
 set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=85
-
+set ruler " show the cursor position all the time
+set cursorline " highlight current line
 set smartcase
 
+set ttymouse=xterm2 " force mouse support for screen
+set mouse=a " terminal mouse when possible
 
 " REMAPPINGS & other commands
 " ----------------------------------------------------------------------------------
