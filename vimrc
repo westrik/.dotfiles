@@ -58,6 +58,11 @@ set smartcase
 set ttymouse=xterm2 " force mouse support for screen
 set mouse=a " terminal mouse when possible
 
+" -/= to navigate tabs
+noremap - :tabprevious<CR>
+noremap = :tabnext<CR>
+
+
 " REMAPPINGS & other commands
 " ----------------------------------------------------------------------------------
 
@@ -72,16 +77,20 @@ nnoremap j gj
 nnoremap k gk
 
 map <leader>y "*y
+
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
+
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
 nnoremap <leader><leader> <c-^>
+
 " Close all other windows, open a vertical split, and open this file's test
 " alternate in it.
 nnoremap <leader>s :call FocusOnFile()<cr>
@@ -97,11 +106,11 @@ map <leader>l :w\|:silent !reload-chrome<cr>
 " Align selected lines
 vnoremap <leader>ib :!align<cr>
 
-" map ,V to paste without having to switch indent modes
-nnoremap <leader>V :r !pbpaste
-
 " make leader be a comma
 let mapleader=","
+
+" map ,V to paste without having to switch indent modes
+nnoremap <leader>V :r !pbpaste
 
 " css property sorting
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
@@ -118,6 +127,9 @@ nnoremap <leader>v V`]
 " open .vimrc quickly in split window
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>egv <C-w><C-v><C-l>:e ~/.gvimrc<cr>
+
+" Swaps selection with buffer
+vnoremap <C-X> <Esc>`.``gvP``P
 
 
 " STATUS LINE
@@ -205,6 +217,10 @@ filetype indent on
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
+
+" GUNDO
+" ----------------------------------
+noremap ,u :GundoToggle<CR>
 
 
 
