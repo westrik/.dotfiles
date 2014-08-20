@@ -6,6 +6,8 @@ ZSH_THEME="gallois"
 source $ZSH/oh-my-zsh.sh
 
 bindkey -v
+bindkey '^R' history-incremental-search-backward
+
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/projects
@@ -19,8 +21,6 @@ fi
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
-
-
 
 
 
@@ -103,32 +103,47 @@ fi
 
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
-
-
 # MISCELLANEOUS
 alias reload!='. ~/.zshrc'
 alias sasquatch='sass --watch sass:compiled --style compact'
 alias gitgo="git add * && git commit -a && git push origin master"
-alias ssh-charmander='ssh ec2-user@54.213.96.38 -i ~/.ssh/mattw.pem' #good thing i used ssh keys huh otherwise you'd be stealin
-alias ssh-clefairy='ssh root@162.243.43.222'
+alias ssh-wagstaff='ssh root@162.243.201.12'
 
 alias 2500='cd ~/Academic/CIS\ 2500/'
 alias p='cd ~/Projects/'
 alias 2c='cd ~/Academic/CIS\ 2500/coursework/'
+alias beg='bundle exec guard'
 
 
 # PATH
-export GOPATH=$HOME/go
+export GOPATH="$HOME/go"
+export GOPATH="$HOME/Projects/recipebox:$GOPATH"
+
 export NODE_PATH=`pwd`/Shared/:`pwd`/Node/:`pwd`/Node/shell/:`pwd`/Node/view/
 
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:/usr/pkg/man:$MANPATH"
 
+export PATH="$HOME/.pyenv/shims:$PATH"
 export PATH="./bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$HOME/.sfs:$ZSH/bin:$PATH"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="/usr/pkg/bin:/usr/pkg/sbin:$PATH"
 export PATH="$HOME/Library/Haskell/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
-export PATH=$GOPATH/bin:$PATH
+export PATH="$PATH:/usr/local/Cellar/go/1.2.1/libexec/bin"
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/go_appengine:$PATH"
+export PATH="$HOME/virtualenvs:$PATH"
 
+export PATH="$HOME/Projects/depot_tools:$PATH"
 
+export PYENV_VERSION=2.7.6
+
+# NVM
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM
+
+# pyenv
+eval "$(pyenv init -)"
+
+# Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

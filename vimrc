@@ -36,7 +36,10 @@ set listchars=tab:↹·,extends:⇉,precedes:⇇,nbsp:␠,trail:␠,nbsp:␣
 set showbreak=↳\ " shown at the start of a wrapped line
 
 set background=dark
-colorscheme solarized
+colorscheme solarized 
+
+" disable beeping + visual flash
+set noeb vb t_vb=
 
 let g:airline_powerline_fonts = 1
 set laststatus=2 "have airline open all the time
@@ -54,6 +57,8 @@ set colorcolumn=85
 set ruler " show the cursor position all the time
 set cursorline " highlight current line
 set smartcase
+let c_space_errors = 1
+
 
 set ttymouse=xterm2 " force mouse support for screen
 set mouse=a " terminal mouse when possible
@@ -110,7 +115,7 @@ vnoremap <leader>ib :!align<cr>
 let mapleader=","
 
 " map ,V to paste without having to switch indent modes
-nnoremap <leader>V :r !pbpaste
+nnoremap <leader>V :r !pbpaste<cr>
 
 " css property sorting
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
@@ -130,6 +135,22 @@ nnoremap <leader>egv <C-w><C-v><C-l>:e ~/.gvimrc<cr>
 
 " Swaps selection with buffer
 vnoremap <C-X> <Esc>`.``gvP``P
+
+" Open new file with ,o
+nnoremap <Leader>o :CtrlP<CR>
+
+" ,v ,y to yank/put to system clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" Easy compiling for mml files
+autocmd FileType mml nnoremap <leader>m :MmlMake<cr>
+
+nnoremap <leader><space> :nohlsearch<cr>
 
 
 " STATUS LINE
@@ -156,6 +177,25 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
 
+""" FocusMode
+function! ToggleFocusMode()
+  if (&foldcolumn != 12)
+    set laststatus=0
+    set numberwidth=10
+    set foldcolumn=12
+    set noruler
+    hi FoldColumn ctermbg=none
+    hi LineNr ctermfg=0 ctermbg=none
+    hi NonText ctermfg=0
+  else
+    set laststatus=2
+    set numberwidth=4
+    set foldcolumn=0
+    set ruler
+    execute 'colorscheme ' . g:colors_name
+  endif
+endfunc
+nnoremap <F1> :call ToggleFocusMode()<cr>
 
 
 
@@ -174,13 +214,14 @@ augroup vimrcEx
     \ endif
 
   "for ruby, autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber,latex set ai sw=2 sts=2 et
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,scss,scala,css,cucumber,latex set ai sw=2 sts=2 et
   autocmd FileType python,c set sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+  autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
+  autocmd BufRead *.md  set ai formatoptions=tcroqn2 comments=n:&gt;
 
   " Indent p tags
   " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
@@ -223,11 +264,13 @@ let g:tex_flavor='latex'
 noremap ,u :GundoToggle<CR>
 
 
-
-
 " CTRL-P
 " ------------------------------
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" MARKDOWN
+let g:vim_markdown_folding_disabled=1
+
 
 
 

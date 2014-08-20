@@ -38,6 +38,8 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+.sass-cache
+
 # Vim swap & temporary files
 
 *~

@@ -3,3 +3,5 @@ set guioptions-=T
 set lines=55
 set number
 set gcr=n:blinkon0 " stop cursor blinking
+set vb t_vb=
+set antialias
