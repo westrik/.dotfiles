@@ -27,7 +27,7 @@ set writebackup " temp backup during write
 set undodir=~/.vim/undo " persistent undo storage
 set undofile " persistent undo on
 
-set tabstop=4
+set tabstop=4 
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -111,10 +111,10 @@ map <leader>l :w\|:silent !reload-chrome<cr>
 " Align selected lines
 vnoremap <leader>ib :!align<cr>
 
-" make leader be a comma
-let mapleader=","
+" make leader be SPACE hell yeah its big
+let mapleader=" "
 
-" map ,V to paste without having to switch indent modes
+" map <leader>V to paste without having to switch indent modes
 nnoremap <leader>V :r !pbpaste<cr>
 
 " css property sorting
@@ -136,10 +136,10 @@ nnoremap <leader>egv <C-w><C-v><C-l>:e ~/.gvimrc<cr>
 " Swaps selection with buffer
 vnoremap <C-X> <Esc>`.``gvP``P
 
-" Open new file with ,o
+" Open new file with <leader>o
 nnoremap <Leader>o :CtrlP<CR>
 
-" ,v ,y to yank/put to system clipboard
+" <leader>v <leader>y to yank/put to system clipboard
 vmap <Leader>y "+y
 vmap <Leader>d "+d
 nmap <Leader>p "+p
@@ -156,9 +156,7 @@ nnoremap <leader><space> :nohlsearch<cr>
 " STATUS LINE
 " ----------------------------------------------------------------------------------
 
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-
-
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 
 " MULTIPURPOSE TAB KEY
@@ -206,7 +204,7 @@ nnoremap <F1> :call ToggleFocusMode()<cr>
 augroup vimrcEx
   " Clear all autocmds in the group
   autocmd!
-  autocmd FileType text setlocal textwidth=78
+  autocmd FileType text setlocal textwidth=80
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -233,35 +231,38 @@ augroup vimrcEx
   " to run commands there.
   autocmd! CmdwinEnter * :unmap <cr>
   autocmd! CmdwinLeave * :call MapCR()
+  
+augroup END
+
+" Automatically refresh vimrc on save
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
 
 
-
-" PLUGINS
-" ----------------------------------------------------------------------------------
-
-" VIM-LATEX
-" ------------------------------
-
+" Vim-LaTeX
+" ----------------------------------
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
 
 set grepprg=grep\ -nH\ $*
 
-" OPTIONAL: This enables automatic indentation as you type.
-filetype indent on
-
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
+let g:Tex_DefaultTargetFormat='pdf'
+let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
+
+
 
 " GUNDO
 " ----------------------------------
-noremap ,u :GundoToggle<CR>
+noremap <leader>u :GundoToggle<CR>
 
 
 " CTRL-P
