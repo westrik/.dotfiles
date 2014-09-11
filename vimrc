@@ -111,8 +111,8 @@ map <leader>l :w\|:silent !reload-chrome<cr>
 " Align selected lines
 vnoremap <leader>ib :!align<cr>
 
-" make leader be SPACE hell yeah its big
-let mapleader=" "
+" make leader comma 
+let mapleader=","
 
 " map <leader>V to paste without having to switch indent modes
 nnoremap <leader>V :r !pbpaste<cr>
@@ -272,6 +272,8 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 " MARKDOWN
 let g:vim_markdown_folding_disabled=1
 
-
+" Merlin 
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 

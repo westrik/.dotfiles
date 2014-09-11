@@ -1,4 +1,3 @@
-
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.oh-my-zsh
 plugins=(git)
@@ -147,3 +146,6 @@ eval "$(pyenv init -)"
 
 # Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# OPAM configuration
+. /Users/matt/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
