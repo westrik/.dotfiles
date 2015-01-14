@@ -1,6 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/Users/matt/Sites/recipe/.git'
-let g:netrw_dirhist_2='/Users/matt/Dropbox/School/F14/LaTeX/latex-homework-template'
-let g:netrw_dirhist_3='/Users/matt/Desktop/recipe_new/recipe/static'
-let g:netrw_dirhist_4='/Users/matt/Desktop/recipe_new/recipe/templates'
+let g:netrw_dirhist_cnt =0

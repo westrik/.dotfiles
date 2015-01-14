@@ -51,9 +51,9 @@ if !exists('g:airline_symbols')
   let g:airline_symbols.space = "\ua0"
 
 set wrap
-set textwidth=79
+set textwidth=80
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=80
 set ruler " show the cursor position all the time
 set cursorline " highlight current line
 set smartcase
@@ -212,8 +212,8 @@ augroup vimrcEx
     \ endif
 
   "for ruby, autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,scss,scala,css,cucumber,latex set ai sw=2 sts=2 et
-  autocmd FileType python,c set sw=4 sts=4 et
+  autocmd FileType ruby,haml,eruby,yaml,html,sass,scss,scala,css,cucumber,latex set ai sw=2 sts=2 et
+  autocmd FileType python,c,javascript set sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
@@ -240,6 +240,17 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
+
+" Simple re-format for minified Javascript
+command! UnMinify call UnMinify()
+function! UnMinify()
+    %s/{\ze[^\r\n]/{\r/g
+    %s/){/) {/g
+    %s/};\?\ze[^\r\n]/\0\r/g
+    %s/;\ze[^\r\n]/;\r/g
+    %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
+    normal ggVG=
+endfunction
 
 
 " Vim-LaTeX
@@ -276,4 +287,6 @@ let g:vim_markdown_folding_disabled=1
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
+"" Y U NO
+let g:YUNOcommit_after = 20
 

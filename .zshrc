@@ -1,8 +1,9 @@
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.oh-my-zsh
+# load prezto
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
 plugins=(git)
-ZSH_THEME="gallois"
-source $ZSH/oh-my-zsh.sh
 
 bindkey -v
 bindkey '^R' history-incremental-search-backward
@@ -23,19 +24,6 @@ compinit
 
 
 
-
-# TODO: Look into using hub as a git wrapper...
-# ---------------------------------------------
-# hub_path=$(which hub)
-# if (( $+commands[hub] ))
-# then
-#   alias git=$hub_path
-# fi
-
-
-
-
-#
 # ALIASES
 # ---------------------------------------------------------------------
 
@@ -107,12 +95,19 @@ alias reload!='. ~/.zshrc'
 alias sasquatch='sass --watch sass:compiled --style compact'
 alias gitgo="git add * && git commit -a && git push origin master"
 alias ssh-wagstaff='ssh root@162.243.201.12'
+alias ssh-potter='ssh mwestrik@potter.socs.uoguelph.ca'
 
 alias 2500='cd ~/Academic/CIS\ 2500/'
 alias p='cd ~/Projects/'
 alias 2c='cd ~/Academic/CIS\ 2500/coursework/'
 alias beg='bundle exec guard'
+alias q='exit'
+alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip'
 
+alias vgo='source venv/bin/activate'
+alias school='cd ~/Dropbox/School/F14'
+
+alias 2rot13='echo'
 
 # PATH
 export GOPATH="$HOME/go"
@@ -137,6 +132,10 @@ export PATH="$HOME/Projects/depot_tools:$PATH"
 
 export PYENV_VERSION=2.7.6
 
+# ERLANG
+
+export ERL_LIBS="$HOME/Desktop/build/neotoma"
+
 # NVM
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM
@@ -146,6 +145,12 @@ eval "$(pyenv init -)"
 
 # Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# pkgsrc 
+export PATH="$PATH:$HOME/pkg/bin:$HOME/pkg/sbin"
+
+# racket 
+export PATH="$PATH:/Applications/Racket/bin"
 
 # OPAM configuration
 . /Users/matt/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
