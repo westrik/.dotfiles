@@ -94,7 +94,7 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 alias reload!='. ~/.zshrc'
 alias sasquatch='sass --watch sass:compiled --style compact'
 alias gitgo="git add * && git commit -a && git push origin master"
-alias ssh-wagstaff='ssh root@162.243.201.12'
+alias ssh-wagstaff='ssh root@192.241.162.151'
 alias ssh-potter='ssh mwestrik@potter.socs.uoguelph.ca'
 
 alias 2500='cd ~/Academic/CIS\ 2500/'

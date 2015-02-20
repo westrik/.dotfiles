@@ -17,7 +17,6 @@ syntax on
 set number
 set modifiable
 
-set spell
 set hlsearch
 set autoindent
 set history=1000
@@ -41,7 +40,7 @@ colorscheme solarized
 " disable beeping + visual flash
 set noeb vb t_vb=
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0 
 set laststatus=2 "have airline open all the time
 let g:bufferline_echo = 0 "don't show auto echoing from vim
 set noshowmode
@@ -216,10 +215,12 @@ augroup vimrcEx
   autocmd FileType python,c,javascript set sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
+  autocmd! BufRead,BufNewFile *.clj setfiletype clojure
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.md  set ai formatoptions=tcroqn2 comments=n:&gt;
+
 
   " Indent p tags
   " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
@@ -284,8 +285,8 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:vim_markdown_folding_disabled=1
 
 " Merlin 
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
+"let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+"execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 "" Y U NO
 let g:YUNOcommit_after = 20
