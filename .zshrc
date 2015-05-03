@@ -8,10 +8,6 @@ plugins=(git)
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/projects
-
 # .localrc for secret stuff
 if [[ -a ~/.localrc ]]
 then
@@ -88,6 +84,29 @@ then
   alias la='gls -A --color'
 fi
 
+up() {
+  local op=print
+  [[ -t 1 ]] && op=cd
+  case "$1" in
+    '') up 1;;
+    -*|+*) $op ~$1;;
+    <->) $op $(printf '../%.0s' {1..$1});;
+    *) local -a seg; seg=(${(s:/:)PWD%/*})
+       local n=${(j:/:)seg[1,(I)$1*]}
+       if [[ -n $n ]]; then
+         $op /$n
+       else
+         print -u2 up: could not find prefix $1 in $PWD
+         return 1
+       fi
+  esac
+}
+
+zpass() {
+  LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~' < /dev/urandom | head -c${1:-20}
+  echo
+}
+
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
 # MISCELLANEOUS
@@ -98,22 +117,24 @@ alias ssh-wagstaff='ssh root@192.241.162.151'
 alias ssh-potter='ssh mwestrik@potter.socs.uoguelph.ca'
 
 alias 2500='cd ~/Academic/CIS\ 2500/'
-alias p='cd ~/Projects/'
+alias p='cd ~/Desktop/Projects/'
 alias 2c='cd ~/Academic/CIS\ 2500/coursework/'
 alias beg='bundle exec guard'
 alias q='exit'
 alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip'
 
 alias vgo='source venv/bin/activate'
-alias school='cd ~/Dropbox/School/F14'
-
+alias school='cd ~/Dropbox/School/W15'
+alias r='cd ~/Desktop/recipebox'
 alias 2rot13='echo'
+alias dc='cd'
+alias c='clear'
 
 # PATH
 export GOPATH="$HOME/go"
 export GOPATH="$HOME/Projects/recipebox:$GOPATH"
 
-export NODE_PATH=`pwd`/Shared/:`pwd`/Node/:`pwd`/Node/shell/:`pwd`/Node/view/
+export NODE_PATH="`pwd`/Shared/:`pwd`/Node/:`pwd`/Node/shell/:`pwd`/Node/view/"
 
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:/usr/pkg/man:$MANPATH"
 
@@ -150,7 +171,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$PATH:$HOME/pkg/bin:$HOME/pkg/sbin"
 
 # racket 
-export PATH="$PATH:/Applications/Racket/bin"
+export PATH="$PATH:/Applications/Racket\ v6.1.1/bin"
 
 # OPAM configuration
 . /Users/matt/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
