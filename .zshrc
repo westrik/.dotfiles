@@ -103,6 +103,17 @@ alias unprocrast='sudo vim /etc/hosts'
 alias vim='/usr/local/Cellar/vim/7.4.922/bin/vim'
 alias flush='dscacheutil -flushcache'
 alias h="history | grep"
+alias school='cd ~/Dropbox/School/W15'
+alias r='cd ~/Desktop/recipebox'
+alias 2rot13='echo'
+alias dc='cd'
+alias c='clear'
+
+# PATH
+export GOPATH="$HOME/go"
+export GOPATH="$HOME/Projects/recipebox:$GOPATH"
+
+export NODE_PATH="`pwd`/Shared/:`pwd`/Node/:`pwd`/Node/shell/:`pwd`/Node/view/"
 
 # PATH
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:/usr/pkg/man:$MANPATH"
@@ -137,6 +148,9 @@ export DYLD_FALLBACK_LIBRARY_PATH='/Users/matt/anaconda/lib'
 
 export PYTHONPATH=/usr/local/Cellar/opencv/2.4.12_2/lib/python2.7/site-packages/
 
+# racket 
+export PATH="$PATH:/Applications/Racket\ v6.1.1/bin"
+>>>>>>> 64da6dbf5dcb3e4fec377da35c2f371c346a888c
 
 # OPAM configuration
 . /Users/matt/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
