@@ -150,7 +150,6 @@ export PYTHONPATH=/usr/local/Cellar/opencv/2.4.12_2/lib/python2.7/site-packages/
 
 # racket 
 export PATH="$PATH:/Applications/Racket\ v6.1.1/bin"
->>>>>>> 64da6dbf5dcb3e4fec377da35c2f371c346a888c
 
 # OPAM configuration
 . /Users/matt/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
