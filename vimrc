@@ -1,7 +1,3 @@
-" ----------------------------------------------------------------------------------
-" github.com/mattwestrik/dotfiles
-" ----------------------------------------------------------------------------------
-
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -20,6 +16,8 @@ set modifiable
 set hlsearch
 set autoindent
 set history=1000
+
+set backspace=indent,eol,start
 
 set nobackup " backups are annoying
 set writebackup " temp backup during write
@@ -40,7 +38,7 @@ colorscheme solarized
 " disable beeping + visual flash
 set noeb vb t_vb=
 
-let g:airline_powerline_fonts = 0 
+let g:airline_powerline_fonts = 1 
 set laststatus=2 "have airline open all the time
 let g:bufferline_echo = 0 "don't show auto echoing from vim
 set noshowmode
@@ -52,12 +50,12 @@ if !exists('g:airline_symbols')
 set wrap
 set textwidth=80
 set formatoptions=qrn1
+set fo+=t
 set colorcolumn=80
 set ruler " show the cursor position all the time
 set cursorline " highlight current line
 set smartcase
 let c_space_errors = 1
-
 
 set ttymouse=xterm2 " force mouse support for screen
 set mouse=a " terminal mouse when possible
@@ -212,10 +210,12 @@ augroup vimrcEx
 
   "for ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,html,sass,scss,scala,css,cucumber,latex set ai sw=2 sts=2 et
-  autocmd FileType python,c,javascript set sw=4 sts=4 et
+  autocmd FileType python,c,javascript,prolog set sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
   autocmd! BufRead,BufNewFile *.clj setfiletype clojure
+  autocmd! BufRead,BufNewFile *.pro setfiletype prolog
+  autocmd! BufRead,BufNewFile *.cob setfiletype cobol
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -291,3 +291,6 @@ let g:vim_markdown_folding_disabled=1
 "" Y U NO
 let g:YUNOcommit_after = 20
 
+
+"" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"

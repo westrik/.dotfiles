@@ -1,3 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/Users/matt/.dotfiles/functions'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/matt/OneDrive - mail.uoguelph.ca/School/W15/coursework/3110'
+let g:netrw_dirhist_2='/Users/matt/OneDrive - mail.uoguelph.ca/School/W17/CIS_4650/git/.git'
+let g:netrw_dirhist_3='/Users/matt/Desktop/gretchen/src/gretchen/constraint'
+let g:netrw_dirhist_4='/Users/matt/OneDrive - mail.uoguelph.ca/School/W17/CIS_4650/git/report_chk2'
+let g:netrw_dirhist_5='/Users/matt/.dotfiles/.zprezto'

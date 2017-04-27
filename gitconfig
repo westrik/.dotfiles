@@ -7,6 +7,8 @@
 	st = status
 	co = checkout
 	pom = push origin master
+	patdiff = difftool -y -x patdiff
+    p = pull
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vim
