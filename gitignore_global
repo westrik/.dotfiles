@@ -1,4 +1,4 @@
-Compiled source #
+# Compiled source #
 ###################
 *.com
 *.class
@@ -41,6 +41,5 @@ Thumbs.db
 .sass-cache
 
 # Vim swap & temporary files
-
 *~
 .*.sw?
