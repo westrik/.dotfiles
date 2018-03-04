@@ -1,3 +1,7 @@
 # matt's dotfiles
 
-run `bash link.sh`
+```bash
+git pull
+git submodule update --init --recursive
+bash link.sh
+```
