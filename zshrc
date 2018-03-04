@@ -79,83 +79,20 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 # MISCELLANEOUS
 alias reload!='. ~/.zshrc'
 alias sasquatch='sass --watch sass:compiled --style compact'
-alias gitgo="git add * && git commit -a && git push origin master"
-alias ssh-wagstaff='ssh root@192.241.162.151'
-alias ssh-potter='ssh mwestrik@potter.socs.uoguelph.ca'
-
-alias p='cd ~/Desktop/Projects/'
 alias beg='bundle exec guard'
 alias q='exit'
 alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip'
 alias combinepdf='gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
-alias weather='curl wttr.in'
-
-alias vgo='source venv/bin/activate'
-alias s='cd ~/OneDrive\ -\ mail.uoguelph.ca/School/W17'
-alias eda='cd ~/OneDrive\ -\ mail.uoguelph.ca/eda'
-alias 2rot13='echo'
-alias dc='cd'
-alias c='clear'
-alias c='clear'
-alias procrast='sudo vim /etc/hosts'
-alias unprocrast='sudo vim /etc/hosts'
-
-alias vim='/usr/local/Cellar/vim/7.4.922/bin/vim'
 alias flush='dscacheutil -flushcache'
 alias h="history | grep"
-alias school='cd ~/Dropbox/School/W15'
-alias r='cd ~/Desktop/recipebox'
-alias 2rot13='echo'
 alias dc='cd'
 alias c='clear'
 
-# PATH
-export GOPATH="$HOME/go"
-export GOPATH="$HOME/Projects/recipebox:$GOPATH"
+alias p="cd $HOME/Dropbox/Mat/current\ projects"
 
-export NODE_PATH="`pwd`/Shared/:`pwd`/Node/:`pwd`/Node/shell/:`pwd`/Node/view/"
-
-# PATH
-export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:/usr/pkg/man:$MANPATH"
-
-export PATH="./bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$HOME/.sfs:$ZSH/bin:$PATH"
-#export PATH="/usr/local/gnat/bin:$PATH"
-export PATH="$HOME:$HOME/bin:/usr/local/bin:$PATH"
-export PATH="/usr/pkg/bin:/usr/pkg/sbin:$PATH"
+export PATH=$HOME/.local/bin:$PATH
+export PATH="$HOME/anaconda/bin:$PATH"
 export PATH="$HOME/Library/Haskell/bin:$PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
-export PATH="$GOPATH/bin:$PATH"
-export PATH="$HOME/go_appengine:$PATH"
-export PATH="$HOME/virtualenvs:$PATH"
-
-export PATH="$HOME/Projects/depot_tools:$PATH"
-
-export PATH="/usr/local/smlnj/bin/:$PATH"
-
-
-# pkgsrc 
-export PATH="$PATH:$HOME/pkg/bin:$HOME/pkg/sbin"
-
-# racket 
-export PATH="$PATH:/Applications/Racket\ v6.1.1/bin"
-export PATH="$PATH:/Library/TeX/texbin"
-
-export PATH="$PATH:/$HOME/.local/bin"
-export PATH="/Users/matt/anaconda/bin:$PATH"
-
-
-export DYLD_FALLBACK_LIBRARY_PATH='/Users/matt/anaconda/lib'
-
-export PYTHONPATH=/usr/local/Cellar/opencv/2.4.12_2/lib/python2.7/site-packages/
-
-# racket 
-export PATH="$PATH:/Applications/Racket\ v6.1.1/bin"
 
 # OPAM configuration
 . /Users/matt/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-# stack config
-export XDG_DATA_HOME="$HOME/.local/share"
-export STACK_ROOT="$XDG_DATA_HOME/stack"
-
-source /Users/matt/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

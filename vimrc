@@ -38,7 +38,6 @@ colorscheme solarized
 " disable beeping + visual flash
 set noeb vb t_vb=
 
-let g:airline_powerline_fonts = 1 
 set laststatus=2 "have airline open all the time
 let g:bufferline_echo = 0 "don't show auto echoing from vim
 set noshowmode
