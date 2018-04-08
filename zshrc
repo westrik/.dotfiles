@@ -88,7 +88,7 @@ alias h="history | grep"
 alias dc='cd'
 alias c='clear'
 
-alias p="cd $HOME/Dropbox/Mat/current\ projects"
+alias p="cd $HOME/Projects/"
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH="$HOME/anaconda/bin:$PATH"
