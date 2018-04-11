@@ -13,6 +13,10 @@ files="tmux.conf "\
 "zshrc zprezto zpreztorc "\
 "gitconfig gitignore_global "
 
+cd $dir/vim/bundle/vimproc.vim
+make
+cd -
+
 ##########
 
 # create .dotfiles_old in homedir

@@ -3,5 +3,5 @@
 ```bash
 git pull
 git submodule update --init --recursive
-bash link.sh
+bash setup.sh
 ```
