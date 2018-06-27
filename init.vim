@@ -15,5 +15,9 @@ Plug 'sheerun/vim-polyglot'          " On-demand language packs
 Plug 'google/vim-maktaba'            " Needed for vim-bazel
 Plug 'bazelbuild/vim-bazel'          " Run bazel commands in vim
 Plug 'Valloric/YouCompleteMe'        " Auto-completion
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
+
+set background=dark
+colorscheme solarized
