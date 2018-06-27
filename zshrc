@@ -88,11 +88,18 @@ alias h="history | grep"
 alias dc='cd'
 alias c='clear'
 
-alias p="cd $HOME/Projects/"
+alias vim='nvim'
+
+alias p="cd $HOME/Dropbox/Mat/projects/"
 
 export PATH=$HOME/.local/bin:$PATH
-export PATH="$HOME/anaconda/bin:$PATH"
+export PATH="$HOME/anaconda3/bin:$PATH"
 export PATH="$HOME/Library/Haskell/bin:$PATH"
+export PATH="/usr/local/cuda/bin:$PATH"
 
 # OPAM configuration
 . /Users/matt/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+export DYLD_LIBRARY_PATH=/usr/local/cuda/lib:$DYLD_LIBRARY_PATH
+# Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"

@@ -1,38 +1,18 @@
 
 #!/bin/bash
-############################
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
-############################
 
-########## Variables
+if ! command -v brew >/dev/null 2>&1; then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
-dir=~/.dotfiles                    # dotfiles directory
-olddir=~/.dotfiles_old             # old dotfiles backup directory
-files="tmux.conf "\
-"vimrc vim gvimrc "\
-"zshrc zprezto zpreztorc "\
-"gitconfig gitignore_global "
+brew install neovim tmux
 
-cd $dir/vim/bundle/vimproc.vim
-make
-cd -
+dir=~/.dotfiles
 
-##########
-
-# create .dotfiles_old in homedir
-echo "Creating $olddir for backup of any existing dotfiles in ~"
-mkdir -p $olddir
-echo "...done"
-
-# change to the dotfiles directory
-echo "Changing to the $dir directory"
-cd $dir
-echo "...done"
-
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
-for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/.dotfiles_old/
-    echo "Creating symlink to $file in home directory."
-    ln -s $dir/$file ~/.$file
-done
+ln -s $dir/tmux.conf ~/.tmux.conf
+ln -s $dir/zshrc ~/.zshrc
+ln -s $dir/zprezto ~/.zprezto
+ln -s $dir/zpreztorc ~/.zpreztorc
+ln -s $dir/gitconfig ~/.gitconfig
+ln -s $dir/gitignore_global ~/.gitignore_global
+ln -s $dir/init.vim ~/.config/nvim/init.vim
