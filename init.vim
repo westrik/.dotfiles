@@ -25,7 +25,24 @@ call plug#end()
 set background=dark
 colorscheme solarized
 
-" Remaps
-let g:mapleader = ','  
+" ------ Remaps ------
+noremap <SPACE> <Nop>
+let g:mapleader = ' '
+
 nnoremap ; :
+nnoremap : ;
 vnoremap ; :
+vnoremap : ;
+
+" Move around easily
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
+
+" Edit & reload vim config
+nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sc :source $MYVIMRC<CR>
+
+" Close NERDTree if it's the only buffer open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
