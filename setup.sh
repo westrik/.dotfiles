@@ -7,6 +7,9 @@ fi
 
 brew install neovim tmux
 
+pip2 install --user --upgrade neovim
+pip install --user --upgrade neovim
+
 dir=~/.dotfiles
 
 ln -s $dir/tmux.conf ~/.tmux.conf
