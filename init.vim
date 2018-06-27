@@ -18,6 +18,7 @@ Plug 'Valloric/YouCompleteMe'               " Auto-completion
 Plug 'altercation/vim-colors-solarized'     " Solarized theme
 Plug 'vim-airline/vim-airline'              " Lightweight status bar
 Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'                  " File tree
 
 call plug#end()
 
@@ -25,6 +26,6 @@ set background=dark
 colorscheme solarized
 
 " Remaps
+let g:mapleader = ','  
 nnoremap ; :
 vnoremap ; :
-command R 'so $MYVIMRC'
