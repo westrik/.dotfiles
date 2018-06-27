@@ -1,7 +1,6 @@
 # matt's dotfiles
 
 ```bash
-git pull
-git submodule update --init --recursive
-bash setup.sh
+git clone --recurse-submodules -j8 git@github.com:westrik/.dotfiles.git
+~/.dotfiles/setup.sh
 ```
