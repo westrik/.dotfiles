@@ -7,7 +7,7 @@ fi
 
 brew install neovim tmux python@2 python3
 
-pip2 install --user --upgrade neovim
+pip3 install --user --upgrade pip setuptools wheel neovim
 pip install --user --upgrade neovim
 
 dir=~/.dotfiles
