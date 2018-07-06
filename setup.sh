@@ -5,7 +5,7 @@ if ! command -v brew >/dev/null 2>&1; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-brew install neovim tmux
+brew install neovim tmux python@2 python3
 
 pip2 install --user --upgrade neovim
 pip install --user --upgrade neovim
