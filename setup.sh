@@ -2,12 +2,30 @@
 
 DIR=$HOME/.dotfiles
 
+link_dir() {
+	if [[ -d $HOME/$2 ]]; then
+		echo "~/$2 exists"
+	else
+		ln -s $DIR/$1 $HOME/$2
+	fi
+}
+
+link_file() {
+	if [[ -a $HOME/$2 ]]; then
+		echo "~/$2 exists"
+	else
+		ln -s $DIR/$1 $HOME/$2
+	fi
+}
+
+#-------
+
 if ! command -v brew >/dev/null 2>&1; then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 if ! command -v cargo >/dev/null 2>&1; then
-  curl https://sh.rustup.rs -sSf | sh
+	curl https://sh.rustup.rs -sSf | sh
 fi
 
 brew install neovim tmux python@2 python3
@@ -23,11 +41,11 @@ rm -f $scripts_folder/ghsync
 curl https://gist.githubusercontent.com/westrik/2048a98582de72dae0fcee69166a94ee/raw/ > $scripts_folder/ghsync
 chmod +x $scripts_folder/ghsync
 
-ln -s $DIR/tmux.conf $HOME/.tmux.conf
-ln -s $DIR/zshrc $HOME/.zshrc
-rm -rf $HOME/.zprezto
-ln -s $DIR/zprezto $HOME/.zprezto
-ln -s $DIR/zpreztorc $HOME/.zpreztorc
-ln -s $DIR/gitconfig $HOME/.gitconfig
-ln -s $DIR/gitignore_global $HOME/.gitignore_global
-ln -s $DIR/init.vim $HOME/.config/nvim/init.vim
+link_file tmux.conf .tmux.conf
+link_file zshrc .zshrc
+link_file gitconfig .gitconfig
+link_file gitignore_global .gitignore_global
+mkdir -p $HOME/.config/nvim/
+link_file init.vim .config/nvim/init.vim
+link_file zpreztorc .zpreztorc
+link_dir zprezto .zprezto
