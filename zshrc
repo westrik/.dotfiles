@@ -34,6 +34,7 @@ export PATH=$HOME/.local/bin:$PATH
 # -----------------------------------------------------------------------
 
 # commands
+alias vr='vim ~/.zshrc'
 alias r!='. ~/.zshrc'
 alias h="history | rg"
 alias dc='cd'
@@ -59,7 +60,7 @@ fi
 # helpful tools
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip'
-alias combinepdf='gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
+alias combinepdf='(type combinepdf); gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
 alias dnsflush='dscacheutil -flushcache'
 alias dockspace="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 randp() {
@@ -72,17 +73,17 @@ alias n="cd $HOME/mwestrik-documents/Notes/"
 alias p="cd $HOME/gh;set +m;{ghsync & } 2>/dev/null;set -m"
 
 # git
-alias gu!='git commit --all --amend --no-edit'
+alias gu!='(type gu!); git commit --all --amend --no-edit'
 alias gl='git pull --prune'
-alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias glog="(type glog); git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
-alias gp!='git push -f origin HEAD'
+alias gp!='(type gp!); git push -f origin HEAD'
 alias gd='git diff'
 alias gc='git commit'
 alias gca='git commit -a'
 alias gco='git checkout'
 alias gb='git branch'
-alias grm="git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
+alias grm="(type grm); git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
            perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
 
 # cargo
