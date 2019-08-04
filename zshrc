@@ -1,5 +1,6 @@
 # GENERAL
 # -----------------------------------------------------------------------
+DOTFILES_DIR=$HOME/.dotfiles
 
 # load prezto
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -16,6 +17,9 @@ if [[ -a ~/.localrc ]]
 then
   source ~/.localrc
 fi
+
+# load control sequence variables
+source $DOTFILES_DIR/scripts/colors.sh
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
@@ -74,17 +78,24 @@ alias p="cd $HOME/gh;set +m;{ghsync & } 2>/dev/null;set -m"
 
 # git
 alias gu!='(type gu!); git commit --all --amend --no-edit'
-alias gl='git pull --prune'
-alias glog="(type glog); git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gppru='git pull --prune'
+alias gl="(type gl); git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
 alias gp!='(type gp!); git push -f origin HEAD'
 alias gd='git diff'
+alias gs='git status' # clobber ghostscript
 alias gc='git commit'
-alias gca='git commit -a'
+alias ga.='git add --all .'
 alias gco='git checkout'
+alias gcom='git checkout master'
 alias gb='git branch'
 alias grm="(type grm); git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
            perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
+rmbranch() {
+	branch_name=$1
+	echo "${RRED}deleting branch ${BRED}${branch_name}${RRED} locally and on remote ${RGREEN}(ctrl-c to abort)${CLEAR_FORMAT}"; sleep 2
+	git push --delete origin $branch_name && git branch -d $branch_name
+}
 
 # cargo
 alias cc='cargo check' # clobber llvm
