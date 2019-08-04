@@ -34,7 +34,7 @@ export PATH=$HOME/.local/bin:$PATH
 # -----------------------------------------------------------------------
 
 # commands
-alias reload!='. ~/.zshrc'
+alias r!='. ~/.zshrc'
 alias h="history | rg"
 alias dc='cd'
 alias q='exit'
@@ -69,13 +69,14 @@ randp() {
 
 # folder jumping
 alias n="cd $HOME/mwestrik-documents/Notes/"
-alias p="cd $HOME/gh;./ghsync"
+alias p="cd $HOME/gh;set +m;{ghsync & } 2>/dev/null;set -m"
 
 # git
-alias gupdate='git commit --all --amend --no-edit'
+alias gu!='git commit --all --amend --no-edit'
 alias gl='git pull --prune'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
+alias gp!='git push -f origin HEAD'
 alias gd='git diff'
 alias gc='git commit'
 alias gca='git commit -a'
@@ -83,3 +84,11 @@ alias gco='git checkout'
 alias gb='git branch'
 alias grm="git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
            perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
+
+# cargo
+alias cc='cargo check' # clobber llvm
+alias cbr='cargo build --release'
+alias cb='cargo build'
+alias ct='cargo test'
+alias cf='cargo fmt'
+alias cpr='(type cpr); cargo test && cargo check && cargo fmt'
