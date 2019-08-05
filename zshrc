@@ -37,23 +37,43 @@ export PATH=$HOME/.local/bin:$PATH
 # ALIASES 
 # -----------------------------------------------------------------------
 
-warnalias() {
-	if [ "$#" -ge 1 ]; then
-		color cyan "$(type $1)"
-	fi
+# Reminder me what aliases do so I don't forget 
+_print_alias() {
+	alias_name=$2
+	highlight_color=$1
+	i=0
+	while read -r line; do
+		if [ "$i" -eq 0 ]; then
+			printf "$alias_name is an alias for: "
+		else
+			echo "$(color $highlight_color "$line")"
+		fi
+		i=$((i+1))
+	done < <(echo $(type $alias_name))
+}
+remind_alias() {
+	_print_alias cyan $1
+}
+alias ra=remind_alias
+warn_alias() {
+	_print_alias yellow $1
 }
 
 # commands
-alias vr='vim ~/.zshrc'
-alias r!='. ~/.zshrc'
 alias h="history | rg"
 alias dc='cd'
 alias q='exit'
 alias c='clear'
+alias t='tmux'
+alias zv='vim ~/.zshrc'
+alias zh='less ~/.zhistory'
+alias zrg='rg < ~/.zshrc'
+alias zr!='. ~/.zshrc'
 
 # clobber utilities with preferred options
 alias python="python3"
 alias pip="pip3"
+alias vi='vim'
 if $(nvim -v &>/dev/null); then
   alias vim='nvim'
 fi
@@ -70,7 +90,8 @@ fi
 # helpful tools
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip'
-alias combinepdf='(warnalias combinepdf); gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
+alias combinepdf='(remind_alias combinepdf)
+	/usr/local/bin/gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
 alias dnsflush='dscacheutil -flushcache'
 alias dockspace="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 randp() {
@@ -83,11 +104,14 @@ alias n="cd $HOME/mwestrik-documents/Notes/"
 alias p="cd $HOME/gh;set +m;{ghsync & } 2>/dev/null;set -m"
 
 # git
-alias gu!='(warnalias gu!); git commit --all --amend --no-edit'
-alias gppru='git pull --prune'
-alias gl="(warnalias gl); git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gu!='(warn_alias gu!)
+	git commit --all --amend --no-edit'
 alias gp='git push origin HEAD'
-alias gp!='(warnalias gp!); git push -f origin HEAD'
+alias gp!='(warn_alias gp!)
+	git push -f origin HEAD'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset\
+	%C(yellow)%d%Creset %Cgreen(%cr)%Creset' \
+	--abbrev-commit --date=relative"
 alias gd='git diff'
 alias gs='git status' # clobber ghostscript
 alias gc='git commit'
@@ -95,11 +119,19 @@ alias ga.='git add --all .'
 alias gco='git checkout'
 alias gcom='git checkout master'
 alias gb='git branch'
-alias grm="(warnalias grm); git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
+alias gre="git rebase"
+alias grem="gre master"
+alias grec="gre --continue"
+alias grea="gre --abort"
+alias gppru='git pull --prune'
+alias grm="(warn_alias grm)
+	git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
            perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
 rmbranch() {
 	branch_name=$1
-	echo "${RRED}deleting branch ${BRED}${branch_name}${RRED} locally and on remote ${RGREEN}(ctrl-c to abort)${CLEAR_FORMAT}"; sleep 2
+	printf "$(color red "deleting branch locally and on remote: $(bold red $branch_name)") "
+	printf "$(dim red "(ctrl-c to abort)")\n"
+	sleep 2
 	git push --delete origin $branch_name && git branch -d $branch_name
 }
 
@@ -109,4 +141,5 @@ alias cbr='cargo build --release'
 alias cb='cargo build'
 alias ct='cargo test'
 alias cf='cargo fmt'
-alias cpr='(warnalias cpr); cargo test && cargo check && cargo fmt'
+alias cpr='(remind_alias cpr)
+	cargo test && cargo check && cargo fmt'

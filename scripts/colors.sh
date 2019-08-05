@@ -90,6 +90,11 @@ invert() {
 	# example: `invert "hello world"`
 	add_format invert $1 $2
 }
+dim() {
+	# example: `dim red "hello world"`
+	# example: `dim "hello world"`
+	add_format dim $1 $2
+}
 warn() {
 	# example: `warn "check in on this"`
 	if [ "$#" -ge 1 ]; then
