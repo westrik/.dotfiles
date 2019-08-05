@@ -9,19 +9,24 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'altercation/vim-colors-solarized'     " Solarized theme
+Plug 'ntpeters/vim-better-whitespace'       " Highlight trailing whitespace
+Plug 'scrooloose/nerdtree'                  " File tree
+Plug 'sheerun/vim-polyglot'                 " On-demand language packs
+Plug 'tpope/vim-markdown'                   " Markdown runtime
 Plug 'tpope/vim-sensible'                   " Sensible vim defaults
 Plug 'tpope/vim-surround'                   " Add quote substition commands
-Plug 'sheerun/vim-polyglot'                 " On-demand language packs
-Plug 'google/vim-maktaba'                   " Needed for vim-bazel
-Plug 'altercation/vim-colors-solarized'     " Solarized theme
 Plug 'vim-airline/vim-airline'              " Lightweight status bar
-Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'                  " File tree
+Plug 'vim-airline/vim-airline-themes'       "    + themes
 
 call plug#end()
 
 set background=light
 colorscheme solarized
+
+" Highlight trailing whitespace on save (vim-better-whitespace)
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
 
 " ------ Remaps ------
 noremap <SPACE> <Nop>
