@@ -21,6 +21,7 @@ Plug 'vim-airline/vim-airline-themes'       "    + themes
 
 call plug#end()
 
+set number
 set background=light
 colorscheme solarized
 
@@ -37,6 +38,8 @@ nnoremap <leader>h <C-w>h
 nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
+
+command Markserv !cd $HOME/gh;markserv &
 
 " Edit & reload vim config
 nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
