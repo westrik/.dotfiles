@@ -4,9 +4,8 @@ DOTFILES_DIR=$HOME/.dotfiles
 
 # load prezto
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-
 plugins=(git)
 
 bindkey -v
@@ -15,7 +14,7 @@ bindkey '^R' history-incremental-search-backward
 # .localrc for secrets
 if [[ -a ~/.localrc ]]
 then
-  source ~/.localrc
+	source ~/.localrc
 fi
 
 # load control sequence variables
@@ -73,18 +72,19 @@ alias zr!='. ~/.zshrc'
 # clobber utilities with preferred options
 alias python="python3"
 alias pip="pip3"
+alias v='vim'
 alias vi='vim'
 if $(nvim -v &>/dev/null); then
-  alias vim='nvim'
+	alias vim='nvim'
 fi
 if $(rg &>/dev/null); then
-  alias grep="rg"
+	alias grep="rg"
 fi
 if $(exa &>/dev/null); then
-  alias ls="exa"
-  alias l="exa"
-  alias ll="exa -l"
-  alias lll="exa -la"
+	alias ls="exa"
+	alias l="exa"
+	alias ll="exa -l"
+	alias lll="exa -la"
 fi
 
 # helpful tools
@@ -95,14 +95,16 @@ alias combinepdf='(remind_alias combinepdf)
 alias dnsflush='dscacheutil -flushcache'
 alias dockspace="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 randp() {
-  LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~' < /dev/urandom | head -c${1:-20}
-  echo
+	LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~' < /dev/urandom | head -c${1:-20}
+	echo
 }
 pdf2svg() {
 	pdf_name=$1
 	# Inkscape needs absolute paths.
 	pdf_name=$(realpath "$pdf_name")
-	inkscape --export-plain-svg="$pdf_name.svg" "$pdf_name"
+	cmd="inkscape --export-plain-svg=\"$pdf_name.svg\" \"$pdf_name\""
+	echo "$(color cyan $cmd)"
+	eval $cmd
 }
 
 # folder jumping
@@ -116,9 +118,10 @@ alias gu!='(warn_alias gu!)
 alias gp='git push origin HEAD'
 alias gp!='(warn_alias gp!)
 	git push -f origin HEAD'
-alias gl="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset\
+alias gll="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset\
 	%C(yellow)%d%Creset %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative"
+alias gl="gll --color=always | head" # globber coreutils ls
 alias gd='git diff'
 alias gs='git status' # clobber ghostscript
 alias gc='git commit'
@@ -133,7 +136,7 @@ alias grea="gre --abort"
 alias gppru='git pull --prune'
 alias grm="(warn_alias grm)
 	git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
-           perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
+		perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
 rmbranch() {
 	branch_name=$1
 	printf "$(color red "deleting branch locally and on remote: $(bold red $branch_name)") "
