@@ -37,6 +37,12 @@ export PATH=$HOME/.local/bin:$PATH
 # ALIASES 
 # -----------------------------------------------------------------------
 
+warnalias() {
+	if [ "$#" -ge 1 ]; then
+		color cyan "$(type $1)"
+	fi
+}
+
 # commands
 alias vr='vim ~/.zshrc'
 alias r!='. ~/.zshrc'
@@ -64,7 +70,7 @@ fi
 # helpful tools
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip'
-alias combinepdf='(type combinepdf); gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
+alias combinepdf='(warnalias combinepdf); gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
 alias dnsflush='dscacheutil -flushcache'
 alias dockspace="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 randp() {
@@ -77,11 +83,11 @@ alias n="cd $HOME/mwestrik-documents/Notes/"
 alias p="cd $HOME/gh;set +m;{ghsync & } 2>/dev/null;set -m"
 
 # git
-alias gu!='(type gu!); git commit --all --amend --no-edit'
+alias gu!='(warnalias gu!); git commit --all --amend --no-edit'
 alias gppru='git pull --prune'
-alias gl="(type gl); git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gl="(warnalias gl); git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
-alias gp!='(type gp!); git push -f origin HEAD'
+alias gp!='(warnalias gp!); git push -f origin HEAD'
 alias gd='git diff'
 alias gs='git status' # clobber ghostscript
 alias gc='git commit'
@@ -89,7 +95,7 @@ alias ga.='git add --all .'
 alias gco='git checkout'
 alias gcom='git checkout master'
 alias gb='git branch'
-alias grm="(type grm); git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
+alias grm="(warnalias grm); git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
            perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
 rmbranch() {
 	branch_name=$1
@@ -103,4 +109,4 @@ alias cbr='cargo build --release'
 alias cb='cargo build'
 alias ct='cargo test'
 alias cf='cargo fmt'
-alias cpr='(type cpr); cargo test && cargo check && cargo fmt'
+alias cpr='(warnalias cpr); cargo test && cargo check && cargo fmt'

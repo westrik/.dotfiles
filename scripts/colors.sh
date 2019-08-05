@@ -92,13 +92,19 @@ invert() {
 }
 warn() {
 	# example: `warn "check in on this"`
-	add_format bold red $1
+	if [ "$#" -ge 1 ]; then
+		add_format bold red $1
+	fi
 }
 err() {
 	# example: `err "it failed!"`
-	add_format invert red $1
+	if [ "$#" -ge 1 ]; then
+		add_format invert red $1
+	fi
 }
 success() {
 	# example: `success "it finished"`
-	add_format bold green $1
+	if [ "$#" -ge 1 ]; then
+		add_format invert green $1
+	fi
 }
