@@ -34,10 +34,10 @@ setopt histignorespace
 export PATH=$HOME/.local/bin:$PATH
 
 
-# ALIASES 
+# ALIASES
 # -----------------------------------------------------------------------
 
-# Reminder me what aliases do so I don't forget 
+# Reminder me what aliases do so I don't forget
 _print_alias() {
 	alias_name=$2
 	highlight_color=$1
@@ -98,10 +98,17 @@ randp() {
   LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~' < /dev/urandom | head -c${1:-20}
   echo
 }
+pdf2svg() {
+	pdf_name=$1
+	# Inkscape needs absolute paths.
+	pdf_name=$(realpath "$pdf_name")
+	inkscape --export-plain-svg="$pdf_name.svg" "$pdf_name"
+}
 
 # folder jumping
 alias n="cd $HOME/mwestrik-documents/Notes/"
 alias p="cd $HOME/gh;set +m;{ghsync & } 2>/dev/null;set -m"
+# TODO: add `resource` alias to jump to `~/desktop/_resource_X`
 
 # git
 alias gu!='(warn_alias gu!)
