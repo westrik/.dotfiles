@@ -22,12 +22,13 @@ Plug 'vim-airline/vim-airline-themes'       "    + themes
 call plug#end()
 
 set number
+set mouse=a
 set background=light
 colorscheme solarized
 
 " Highlight trailing whitespace on save (vim-better-whitespace)
-let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=1
+"EnableWhitespace
+"EnableStripWhitespaceOnSave
 
 " ------ Remaps ------
 noremap <SPACE> <Nop>
@@ -39,7 +40,7 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
-command Markserv !cd $HOME/gh;markserv &
+command Markserv !cd $HOME/_;markserv &
 
 " Edit & reload vim config
 nnoremap <silent> <leader>ec :e $MYVIMRC<CR>

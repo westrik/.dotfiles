@@ -59,32 +59,34 @@ warn_alias() {
 }
 
 # commands
-alias h="history | rg"
-alias dc='cd'
-alias q='exit'
 alias c='clear'
+alias dc='cd'
+alias h='history | rg'
+alias q='exit'
 alias t='tmux'
+alias v='vim'
+alias vi='vim'
+alias vv='vim ~/.dotfiles/init.vim'
+alias x='xargs' # clobber xquartz
 alias zv='vim ~/.zshrc'
 alias zh='less ~/.zhistory'
 alias zrg='rg < ~/.zshrc'
 alias zr!='. ~/.zshrc'
 
 # clobber utilities with preferred options
-alias python="python3"
-alias pip="pip3"
-alias v='vim'
-alias vi='vim'
+alias python='python3'
+alias pip='pip3'
 if $(nvim -v &>/dev/null); then
 	alias vim='nvim'
 fi
 if $(rg &>/dev/null); then
-	alias grep="rg"
+	alias grep='rg'
 fi
 if $(exa &>/dev/null); then
-	alias ls="exa"
-	alias l="exa"
-	alias ll="exa -l"
-	alias lll="exa -la"
+	alias ls='exa'
+	alias l='exa'
+	alias ll='exa -l'
+	alias lll='exa -la'
 fi
 
 # helpful tools
@@ -94,6 +96,7 @@ alias combinepdf='(remind_alias combinepdf)
 	/usr/local/bin/gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf'
 alias dnsflush='dscacheutil -flushcache'
 alias dockspace="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
+alias spellcheck='aspell --dont-backup check'
 randp() {
 	LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~' < /dev/urandom | head -c${1:-20}
 	echo
@@ -108,8 +111,8 @@ pdf2svg() {
 }
 
 # folder jumping
-alias n="cd $HOME/mwestrik-documents/Notes/"
-alias p="cd $HOME/gh;set +m;{ghsync & } 2>/dev/null;set -m"
+alias n="cd $HOME/_/notes/"
+alias p="cd $HOME/_/gh;set +m;{ghsync & } 2>/dev/null;set -m"
 # TODO: add `resource` alias to jump to `~/desktop/_resource_X`
 
 # git
@@ -121,18 +124,18 @@ alias gp!='(warn_alias gp!)
 alias gll="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset\
 	%C(yellow)%d%Creset %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative"
-alias gl="gll --color=always | head" # globber coreutils ls
+alias gl='gll --color=always | head' # globber coreutils ls
 alias gd='git diff'
 alias gs='git status' # clobber ghostscript
 alias gc='git commit'
-alias ga.='git add --all .'
+alias gaa='git add --all'
 alias gco='git checkout'
 alias gcom='git checkout master'
 alias gb='git branch'
-alias gre="git rebase"
-alias grem="gre master"
-alias grec="gre --continue"
-alias grea="gre --abort"
+alias gre='git rebase'
+alias grem='gre master'
+alias grec='gre --continue'
+alias grea='gre --abort'
 alias gppru='git pull --prune'
 alias grm="(warn_alias grm)
 	git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
