@@ -19,6 +19,8 @@ fi
 
 # load control sequence variables
 source $DOTFILES_DIR/env_scripts/colors.sh
+# load work folder locations
+source $DOTFILES_DIR/env_scripts/folders.sh
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
@@ -111,8 +113,8 @@ pdf2svg() {
 }
 
 # folder jumping
-alias n="cd $HOME/_/notes/;git pull"
-alias p="cd $HOME/_/gh;set +m;{ghsync & } 2>/dev/null;set -m"
+alias n="cd $NOTES_FOLDER"
+alias p="cd $GITHUB_FOLDER"
 # TODO: add `resource` alias to jump to `~/desktop/_resource_X`
 
 # git

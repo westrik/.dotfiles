@@ -50,4 +50,4 @@ link_file init.vim .config/nvim/init.vim
 link_file zpreztorc .zpreztorc
 link_dir zprezto .zprezto
 
-bash "jobs/setup.sh"
+bash "$DIR/jobs/setup.sh"
