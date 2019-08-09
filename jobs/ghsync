@@ -3,9 +3,9 @@
 # Sync all repositories in the account associated with a GitHub API token to a local folder.
 # Expects $GITHUB_FOLDER and $GITHUB_API_TOKEN to be set.
 
-GREEN='\033[0;32m'
-NC='\033[0m'
 CHUNK_SIZE=100
+
+source $HOME/.dotfiles/env_scripts/colors.sh
 
 get_repo_data() {
 	query="{\
@@ -14,24 +14,32 @@ get_repo_data() {
 	curl --silent -H "Authorization: bearer $GITHUB_API_TOKEN" -X POST -d "$query" https://api.github.com/graphql
 }
 
+fetch_repo_for_url() {
+	output_buffer=$(mktemp)
+	name=$(echo $1 | perl -n -e'/git\@github.com:[A-Za-z0-9]+\/(.+).git/ && print $1')
+
+	if [ -d $name ]; then
+		if [ "$2" == "--fetch-all" ]; then
+			printf "${CGREEN}Updating ${name}${UFALL}\n" >> $output_buffer 2>&1
+		fi
+	else
+		printf "${CGREEN}$name is new, cloning...${UFALL}\n" >> $output_buffer
+		git clone --recurse-submodules $1 "$name" >> $output_buffer 2>&1
+	fi
+
+	if [ "$2" == "--fetch-all" ]; then
+		cd $name
+		git fetch --all >> $output_buffer 2>&1
+		cd - >> /dev/null
+	fi
+	cat $output_buffer
+}
 
 fetch_repos_for_data() {
 	for sshUrl in $(echo $1 | jq -r '.[] | .viewer | .[] | .nodes | .[] | .sshUrl'); do
-		name=$(echo $sshUrl | perl -n -e'/git\@github.com:[A-Za-z0-9]+\/(.+).git/ && print $1')
-
-		if [ -d $name ]; then
-			if [ "$2" == "--fetch-all" ]; then
-				echo "\n${GREEN}Updating ${name}${NC}"
-				(cd "$name"; git fetch --all)
-			fi
-		else
-			echo "\n$GREEN$name is new, cloning...$NC"
-			git clone --recurse-submodules $sshUrl "$name"
-			if [ "$2" == "--fetch-all" ]; then
-				(cd "$name"; git fetch --all)
-			fi
-		fi
+		fetch_repo_for_url $sshUrl $2 &
 	done
+	wait
 }
 
 # ----
