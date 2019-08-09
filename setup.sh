@@ -33,13 +33,13 @@ brew install neovim tmux python@2 python3 terminal-notifier
 pip3 install --user --upgrade pip setuptools wheel neovim
 pip install --user --upgrade neovim
 
-scripts_folder=$HOME/.local/bin
-mkdir -p $scripts_folder
+scripts_bin=$HOME/.local/bin
+mkdir -p $scripts_bin
 
 # Install script that syncs all GitHub repos to a local folder (remember to set GITHUB_API_TOKEN in ~/.localrc)
-rm -f $scripts_folder/ghsync
-ln -s "$DIR/jobs/ghsync" $scripts_folder/ghsync
-chmod +x $scripts_folder/ghsync
+rm -f $scripts_bin/ghsync
+ln -s "$DIR/jobs/github_sync.sh" $scripts_bin/ghsync
+chmod +x $scripts_bin/ghsync
 
 link_file tmux.conf .tmux.conf
 link_file zshrc .zshrc
