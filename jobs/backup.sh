@@ -1,4 +1,6 @@
 #!/bin/sh
+# TODO: report total uploaded size
+
 source $HOME/.dotfiles/env_scripts/folders.sh
 source $HOME/.dotfiles/env_scripts/colors.sh
 
@@ -8,7 +10,7 @@ today=$(date '+%Y-%m-%d')
 echo "\n\n\nRunning backup.sh, and it's $(date)" >> $tmplog
 
 cd $WORK_FOLDER
-for folder in $NOTES_FOLDER $GITHUB_FOLDER $LOGS_FOLDER; do
+for folder in $NOTES_FOLDER $GITHUB_FOLDER $LOGS_FOLDER $DESIGN_FOLDER; do
 	folder_name="$(basename $folder)"
 	archive="$folder_name-$today.tar.gz"
 	printf "${CGREEN}Compressing${FBOLDGREEN} ${folder_name}${UFALL}\n"

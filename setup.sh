@@ -36,9 +36,9 @@ pip install --user --upgrade neovim
 scripts_folder=$HOME/.local/bin
 mkdir -p $scripts_folder
 
-# Install script that syncs all GitHub repos to a local folder (set GITHUB_API_TOKEN in ~/.localrc)
+# Install script that syncs all GitHub repos to a local folder (remember to set GITHUB_API_TOKEN in ~/.localrc)
 rm -f $scripts_folder/ghsync
-curl https://gist.githubusercontent.com/westrik/2048a98582de72dae0fcee69166a94ee/raw/ > $scripts_folder/ghsync
+ln -s "$DIR/jobs/ghsync" $scripts_folder/ghsync
 chmod +x $scripts_folder/ghsync
 
 link_file tmux.conf .tmux.conf
@@ -50,4 +50,4 @@ link_file init.vim .config/nvim/init.vim
 link_file zpreztorc .zpreztorc
 link_dir zprezto .zprezto
 
-bash "$DIR/jobs/setup.sh"
+bash "$DIR/jobs/set_up_recurring_jobs.sh"

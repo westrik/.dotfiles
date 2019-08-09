@@ -1,6 +1,7 @@
 source $HOME/.dotfiles/env_scripts/folders.sh
 
 # Archive the current _log.md and create a new one.
+echo "Archiving _log.md"
 cd $NOTES_FOLDER
 while true; do
 	if $(git diff --quiet && git diff --staged --quiet); then
@@ -16,3 +17,7 @@ while true; do
 	# Wait for hourly job to commit changes
 	sleep 2
 done
+
+# Run B2 backups
+echo "Running B2 backups"
+bash $HOME/.dotfiles/jobs/backup.sh
