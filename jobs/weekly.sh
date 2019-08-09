@@ -11,6 +11,7 @@ while true; do
 		echo "# Week of ${date}" > _log.md
 		cat templates/log.md >> _log.md
 		git add _log.md $log_file && git commit -m '[weekly-job] create new dev log file' && git push
+		terminal-notifier -message "made a new _log.md" -title "[weekly-job] janitor"
 		break
 	fi
 
@@ -21,3 +22,4 @@ done
 # Run B2 backups
 echo "Running B2 backups"
 bash $HOME/.dotfiles/jobs/backup.sh
+terminal-notifier -message "B2 backup succeeded" -title "[weekly-job] b2 backup"

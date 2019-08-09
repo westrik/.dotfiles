@@ -3,7 +3,8 @@ source $HOME/.dotfiles/env_scripts/folders.sh
 # If there are changes in _/notes, commit them and push.
 # TODO: stash changes, pull, then re-apply
 cd $NOTES_FOLDER
-git diff --quiet && git diff --staged --quiet || (git add . && git commit -am '[hourly-job] update with recent changes' && git push)
+git diff --quiet && git diff --staged --quiet || (git add . && git commit -am '[hourly-job] update with recent changes' && git push && terminal-notifier -message "committed + pushed updates in notes" -title "hourly-job"
+)
 
 # Fetch all branches of all of my GitHub repos.
 mkdir -p $LOGS_FOLDER
