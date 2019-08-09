@@ -28,7 +28,7 @@ if ! command -v cargo >/dev/null 2>&1; then
 	curl https://sh.rustup.rs -sSf | sh
 fi
 
-brew install neovim tmux python@2 python3
+brew install neovim tmux python@2 python3 terminal-notifier
 
 pip3 install --user --upgrade pip setuptools wheel neovim
 pip install --user --upgrade neovim
