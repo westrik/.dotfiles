@@ -33,6 +33,7 @@ setopt histignorespace
 # PATH SETUP
 # -----------------------------------------------------------------------
 export PATH=$HOME/.local/bin:$PATH
+export GPG_TTY=$(tty)
 
 
 # ALIASES
@@ -134,6 +135,7 @@ alias gaa='git add --all'
 alias gco='git checkout'
 alias gcom='git checkout master'
 alias gb='git branch'
+alias gms='git merge --squash'
 alias gre='git rebase'
 alias grem='gre master'
 alias grec='gre --continue'
@@ -161,3 +163,4 @@ alias cpr='(remind_alias cpr)
 
 # yarn
 alias yr='yarn run'
+alias fukjs='rm -rf node_modules;yarn install'
