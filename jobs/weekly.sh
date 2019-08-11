@@ -10,7 +10,7 @@ while true; do
 		mv "_log.md" $log_file
 		echo "# Week of ${date}" > _log.md
 		cat templates/log.md >> _log.md
-		git add _log.md $log_file && git commit -m '[weekly-job] create new dev log file' && git push
+		git add _log.md $log_file && git commit --no-gpg-sign -m '[weekly-job] create new dev log file' && git push
 		terminal-notifier -message "made a new _log.md" -title "[weekly-job] janitor"
 		break
 	fi

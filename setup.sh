@@ -20,15 +20,20 @@ link_file() {
 
 #-------
 
+# Homebrew (macOS)
 if ! command -v brew >/dev/null 2>&1; then
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+# Rust toolchain
 if ! command -v cargo >/dev/null 2>&1; then
 	curl https://sh.rustup.rs -sSf | sh
 fi
 
+# Dev tools and helpers
 brew install neovim tmux python@2 python3 terminal-notifier
+# Hashicorp stack
+brew install terraform packer consul
 
 pip3 install --user --upgrade pip setuptools wheel neovim
 pip install --user --upgrade neovim
