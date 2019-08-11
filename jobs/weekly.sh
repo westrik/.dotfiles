@@ -16,10 +16,12 @@ while true; do
 	fi
 
 	# Wait for hourly job to commit changes
-	sleep 2
+	terminal-notifier -message "waiting to migrate dev log" -title "[weekly-job] notes cleanup"
+	sleep 5
 done
 
 # Run B2 backups
 echo "Running B2 backups"
+terminal-notifier -message "starting backup to B2" -title "[weekly-job] B2 backup"
 bash $HOME/.dotfiles/jobs/backup.sh $LOGS_FOLDER/b2_backup.log
-terminal-notifier -message "B2 backup succeeded" -title "[weekly-job] b2 backup"
+terminal-notifier -message "B2 backup succeeded" -title "[weekly-job] B2 backup"

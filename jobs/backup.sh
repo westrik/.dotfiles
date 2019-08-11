@@ -3,6 +3,9 @@
 source $HOME/.dotfiles/env_scripts/folders.sh
 source $HOME/.dotfiles/env_scripts/colors.sh
 
+ENCRYPTION_KEY="$WORK_FOLDER/.backup_pubkey.pem"
+BACKUP_BUCKET="mwestrik-documents"
+
 backup_log=/dev/stdout
 if [ $# -ge 1 ]; then
 	backup_log=$(realpath $1)
@@ -25,7 +28,7 @@ backup_folder() {
 	printf "${CGREEN}Compressing${FBOLDGREEN} ${folder_name}${UFALL}\n" >> $logfile
 	tar --use-compress-program=pigz -czvf $archive ./$folder_name >> $logfile 2>&1
 	printf "${CGREEN}Encrypting & uploading${FBOLDGREEN} ${folder_name}${UFALL}\n" >> $logfile
-	./b2encrypt $archive >> $logfile 2>&1
+	b2encrypt $archive $BACKUP_BUCKET $ENCRYPTION_KEY >> $logfile 2>&1
 	du -sh $archive* >> $logfile 2>&1
 	rm -f $archive* >> $logfile 2>&1
 }

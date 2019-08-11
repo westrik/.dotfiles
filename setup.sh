@@ -41,6 +41,14 @@ rm -f $scripts_bin/ghsync
 ln -s "$DIR/jobs/github_sync.sh" $scripts_bin/ghsync
 chmod +x $scripts_bin/ghsync
 
+# Install Backblaze B2 encrypt/upload and download/decrypt scripts.
+rm -f $scripts_bin/b2encrypt
+ln -s "$DIR/vendor/b2encrypt.sh" $scripts_bin/b2encrypt
+chmod +x $scripts_bin/b2encrypt
+rm -f $scripts_bin/b2decrypt
+ln -s "$DIR/vendor/b2decrypt.sh" $scripts_bin/b2decrypt
+chmod +x $scripts_bin/b2decrypt
+
 link_file tmux.conf .tmux.conf
 link_file zshrc .zshrc
 link_file gitconfig .gitconfig
