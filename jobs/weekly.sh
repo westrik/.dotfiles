@@ -21,5 +21,5 @@ done
 
 # Run B2 backups
 echo "Running B2 backups"
-bash $HOME/.dotfiles/jobs/backup.sh
+bash $HOME/.dotfiles/jobs/backup.sh $LOGS_FOLDER/b2_backup.log
 terminal-notifier -message "B2 backup succeeded" -title "[weekly-job] b2 backup"
