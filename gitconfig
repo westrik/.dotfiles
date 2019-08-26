@@ -1,5 +1,5 @@
 [user]
-	name = Matthew Westrik
+	name = Matt Westrik
 	email = m@ttwestrik.com
 	signingkey = 1D1D4CC59FE2B21A
 [alias]
@@ -20,3 +20,8 @@
 	default = simple
 [commit]
 	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

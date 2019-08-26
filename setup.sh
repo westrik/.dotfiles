@@ -62,5 +62,6 @@ mkdir -p $HOME/.config/nvim/
 link_file init.vim .config/nvim/init.vim
 link_file zpreztorc .zpreztorc
 link_dir zprezto .zprezto
+link_file kitty.conf .config/kitty/kitty.conf
 
 bash "$DIR/jobs/set_up_recurring_jobs.sh"
