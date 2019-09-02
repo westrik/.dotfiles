@@ -1,19 +1,19 @@
 [user]
 	name = Matt Westrik
 	email = m@ttwestrik.com
-	signingkey = 1D1D4CC59FE2B21A
+	signingkey = B1D73CEFC902E638#1D1D4CC59FE2B21A
 [alias]
 	lg = log --color --graph --pretty
 	ci = commit
 	st = status
 	co = checkout
 	pom = push origin master
-    p = pull
+	p = pull
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vim
 	deltaBaseCacheLimit = 1G
-    pager = less -+$LESS -FRX
+	pager = less -+$LESS -FRX
 [help]
 	autocorrect = 1
 [push]

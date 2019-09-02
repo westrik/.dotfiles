@@ -20,23 +20,24 @@ link_file() {
 
 #-------
 
-# Homebrew (macOS)
-if ! command -v brew >/dev/null 2>&1; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	# Homebrew (macOS)
+	if ! command -v brew >/dev/null 2>&1; then
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	fi
+
+	# Rust toolchain
+	if ! command -v cargo >/dev/null 2>&1; then
+		curl https://sh.rustup.rs -sSf | sh
+	fi
+
+	# Dev tools and helpers
+	brew install neovim tmux python@2 python3 terminal-notifier
+	# Hashicorp stack
+	brew install terraform packer consul
 fi
 
-# Rust toolchain
-if ! command -v cargo >/dev/null 2>&1; then
-	curl https://sh.rustup.rs -sSf | sh
-fi
-
-# Dev tools and helpers
-brew install neovim tmux python@2 python3 terminal-notifier
-# Hashicorp stack
-brew install terraform packer consul
-
-pip3 install --user --upgrade pip setuptools wheel neovim
-pip install --user --upgrade neovim
+pip install --user --upgrade pip wheel neovim
 
 scripts_bin=$HOME/.local/bin
 mkdir -p $scripts_bin
@@ -62,6 +63,9 @@ mkdir -p $HOME/.config/nvim/
 link_file init.vim .config/nvim/init.vim
 link_file zpreztorc .zpreztorc
 link_dir zprezto .zprezto
+mkdir -p .config/kitty
 link_file kitty.conf .config/kitty/kitty.conf
 
-bash "$DIR/jobs/set_up_recurring_jobs.sh"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	bash "$DIR/jobs/set_up_recurring_jobs.sh"
+fi
