@@ -6,6 +6,7 @@
 CHUNK_SIZE=100
 
 source $HOME/.dotfiles/env_scripts/colors.sh
+source $HOME/.localrc
 
 get_repo_data() {
 	query="{\

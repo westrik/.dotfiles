@@ -8,12 +8,12 @@
 	st = status
 	co = checkout
 	pom = push origin master
-    p = pull
+	p = pull
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vim
 	deltaBaseCacheLimit = 1G
-    pager = less -+$LESS -FRX
+	pager = less -+$LESS -FRX
 [help]
 	autocorrect = 1
 [push]
