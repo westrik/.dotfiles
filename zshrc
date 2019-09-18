@@ -63,6 +63,7 @@ warn_alias() {
 
 # commands
 alias c='clear'
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias dc='cd'
 alias h='history | rg'
 alias q='exit'
@@ -100,6 +101,18 @@ alias combinepdf='(remind_alias combinepdf)
 alias dnsflush='dscacheutil -flushcache'
 alias dockspace="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 alias spellcheck='aspell --dont-backup check'
+alias chromescrot='chrome --headless --disable-gpu --screenshot'
+writecheck() {
+	file_to_check="$1"
+	echo "$(color cyan 'spellcheck')"
+	spellcheck $file_to_check
+	echo "$(color cyan 'alex')"
+	alex $file_to_check
+	echo "$(color cyan 'diction')"
+	diction $file_to_check
+	echo "$(color cyan 'style')"
+	style $file_to_check
+}
 randp() {
 	LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~' < /dev/urandom | head -c${1:-20}
 	echo
