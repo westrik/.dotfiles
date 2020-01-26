@@ -15,7 +15,7 @@ printf "${FBOLDBLUE}――――――――――――――――――――
 "${CBLUE}Running backup.sh, and it's $(date '+%Y-%m-%d') at $(date '+%H:%M')\n${UFALL}" >> $backup_log
 
 # $LOGS_FOLDER backed up implicitly
-folders_to_backup=($NOTES_FOLDER $DESIGN_FOLDER $GITHUB_FOLDER $READING_FOLDER)
+folders_to_backup=($NOTES_FOLDER $DESIGN_FOLDER $SRC_FOLDER $SCRATCH_FOLDER $READING_FOLDER $TG_DUMP_FOLDER $TG_MEDIA_FOLDER)
 # to re-upload archive: folders_to_backup=($ARCHIVE_FOLDER)
 
 backup_folder() {

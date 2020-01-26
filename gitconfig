@@ -11,7 +11,7 @@
 	p = pull
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = vim
+	editor = nvim
 	deltaBaseCacheLimit = 1G
 	pager = less -+$LESS -FRX
 [help]

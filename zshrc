@@ -33,7 +33,20 @@ setopt histignorespace
 # PATH SETUP
 # -----------------------------------------------------------------------
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.fastlane/bin:$PATH
 export GPG_TTY=$(tty)
+
+# fix Python OpenSSL on Catalina
+export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_FALLBACK_LIBRARY_PATH
+
+# make homebrew more secure
+export HOMEBREW_NO_ANALYTICS=1 
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+export HOMEBREW_CASK_OPTS=--require-sha
+
+# ENV CONFIG
+# -----------------------------------------------------------------------
+export ANSIBLE_NOCOWS=1
 
 
 # ALIASES
@@ -61,13 +74,16 @@ warn_alias() {
 	_print_alias yellow $1
 }
 
+cheat() {
+	curl "cheat.sh/$1?style=bw"
+}
+
 # commands
 alias c='clear'
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias dc='cd'
 alias h='history | rg'
 alias q='exit'
-alias t='tmux'
 alias v='vim'
 alias vi='vim'
 alias vv='vim ~/.dotfiles/init.vim'
@@ -128,8 +144,11 @@ pdf2svg() {
 
 # folder jumping
 alias n="cd $NOTES_FOLDER"
-alias p="cd $GITHUB_FOLDER"
-# TODO: add `resource` alias to jump to `~/desktop/_resource_X`
+alias p="cd $SRC_FOLDER"
+t() {
+	cd $(mktemp -d /tmp/$1.XXXX)
+}
+
 
 # git
 alias gu!='(warn_alias gu!)
@@ -142,6 +161,7 @@ alias gll="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset\
 	--abbrev-commit --date=relative"
 alias gl='gll --color=always | head' # globber coreutils ls
 alias gd='git diff'
+alias gds='git diff --staged'
 alias gs='git status' # clobber ghostscript
 alias gc='git commit'
 alias gaa='git add --all'
@@ -177,3 +197,5 @@ alias cpr='(remind_alias cpr)
 # yarn
 alias yr='yarn run'
 alias fukjs='rm -rf node_modules;yarn install'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

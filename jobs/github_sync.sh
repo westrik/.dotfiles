@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Sync all repositories in the account associated with a GitHub API token to a local folder.
-# Expects $GITHUB_FOLDER and $GITHUB_API_TOKEN to be set.
+# Expects $SRC_FOLDER and $GITHUB_API_TOKEN to be set.
 
 CHUNK_SIZE=100
 
@@ -45,8 +45,8 @@ fetch_repos_for_data() {
 
 # ----
 
-mkdir -p $GITHUB_FOLDER
-cd $GITHUB_FOLDER
+mkdir -p $SRC_FOLDER
+cd $SRC_FOLDER
 
 cursor=""
 while true; do

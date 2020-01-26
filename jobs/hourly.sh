@@ -1,3 +1,5 @@
+#!/bin/sh
+
 source $HOME/.dotfiles/env_scripts/folders.sh
 
 # If there are changes in _/notes, commit them and push.

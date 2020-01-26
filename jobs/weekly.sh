@@ -1,3 +1,5 @@
+#!/bin/sh
+
 source $HOME/.dotfiles/env_scripts/folders.sh
 
 # Archive the current _log.md and create a new one.
