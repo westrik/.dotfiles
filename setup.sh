@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 DIR=$HOME/.dotfiles
 
@@ -18,24 +20,18 @@ link_file() {
 	fi
 }
 
+
 #-------
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	# Homebrew (macOS)
-	if ! command -v brew >/dev/null 2>&1; then
-		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	fi
-
-	# Rust toolchain
-	if ! command -v cargo >/dev/null 2>&1; then
-		curl https://sh.rustup.rs -sSf | sh
-	fi
-
-	# Dev tools and helpers
-	brew install neovim tmux python@2 python3 terminal-notifier
-	# Hashicorp stack
-	brew install terraform packer consul
+	bash "$DIR/install/homebrew.sh"
 fi
+
+# Rust toolchain
+if ! command -v cargo >/dev/null 2>&1; then
+	curl https://sh.rustup.rs -sSf | sh
+fi
+
 
 pip install --user --upgrade pip wheel neovim
 
