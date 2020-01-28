@@ -23,10 +23,6 @@ link_file() {
 
 #-------
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	bash "$DIR/install/homebrew.sh"
-fi
-
 # Rust toolchain
 if ! command -v cargo >/dev/null 2>&1; then
 	curl https://sh.rustup.rs -sSf | sh

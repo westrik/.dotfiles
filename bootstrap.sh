@@ -113,3 +113,37 @@ killall Finder
 
 echo "restarting SystemUIServer"
 killall SystemUIServer
+
+echo "installing homebrew"
+if ! command -v brew >/dev/null 2>&1; then
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+brew install cask
+
+echo "installing Mac apps"
+brew cask install firefox
+brew cask install telegram
+brew cask install spectacle
+brew cask install alfred
+brew cask install --force istat-menus
+brew cask install iterm2
+brew cask install clion
+brew cask install skim
+brew cask install 1password-cli
+brew cask install --force spotify
+brew cask install vlc
+brew cask install transmit
+brew cask install omnigraffle
+brew cask install sketch
+
+echo "installing CLI tools"
+brew install neovim
+brew install tmux
+brew install ripgrep
+brew install jq
+brew install terminal-notifier
+brew install python3
+brew install terraform
+brew install packer
+brew install consul
+brew install yarn
