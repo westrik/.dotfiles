@@ -2,6 +2,18 @@
 
 set -euo pipefail
 
+SECRETS_FILE="$HOME/.localrc"
+
+sudo -v
+# keep-alive: update existing `sudo` time stamp until script is done
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+if ! command -v  >/dev/null 2>&1; then
+if [ -f "$SECRETS_FILE" ]; then
+	# TODO: ask for a GITHUB_API_TOKEN and save it to ~/.localrc
+	touch "$SECRETS_FILE"
+fi
+
 # generate SSH key and copy public key to clipboard
 read -p "generate an SSH key? (y/n): " should_gen_key
 if [ $should_gen_key = "y" ]; then
@@ -14,9 +26,9 @@ if [ $should_gen_key = "y" ]; then
 
 	echo "your new public key: "
 	cat ~/.ssh/id_ed25519.pub
-fi
 
-# TODO: ask for a GitHub API token and save it to ~/.localrc
+	# TODO: upload new pubkey to GitHub, https://developer.github.com/v3/users/keys/#create-a-public-key
+fi
 
 # macOS defaults configuration
 
@@ -24,11 +36,44 @@ read -p "change hostname? (y/n): " should_change_hostname
 if [ $should_change_hostname = "y" ]; then
 	read -p "new hostname: " hostname
 
-	scutil --set ComputerName "$hostname"
-	scutil --set HostName "$hostname"
-	scutil --set LocalHostName "$hostname"
+	sudo scutil --set ComputerName "$hostname"
+	sudo scutil --set HostName "$hostname"
+	sudo scutil --set LocalHostName "$hostname"
 	sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$hostname"
 fi
+
+read -p "clear default tiles from Dock? (y/n): " should_clear_dock
+if [ $should_clear_dock = "y" ]; then
+	echo "clearing Dock"
+	defaults write com.apple.dock persistent-apps -array
+fi
+
+echo "make Dock auto-hide immediately"
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0
+
+echo "use 36px tiles in Dock"
+defaults write com.apple.dock tilesize -int 36
+
+echo "put Dock on the right"
+defaults write com.apple.dock orientation right
+
+echo "minimize windows with 'Scale effect'"
+defaults write com.apple.dock mineffect scale
+
+echo "don't show recent apps in Dock"
+defaults write com.apple.dock show-recents 0
+
+echo "always show scrollbars"
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+
+echo "disable press-and-hold (enable key repeat)"
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+echo "make key repeat really fast"
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 echo "change Cocoa window resize time to 0.001s"
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
@@ -81,29 +126,6 @@ defaults write com.apple.finder EmptyTrashSecurely -bool true
 
 echo "show ~/Library"
 chflags nohidden ~/Library
-
-read -p "clear default tiles from Dock? (y/n): " should_clear_dock
-if [ $should_clear_dock = "y" ]; then
-	echo "clearing Dock"
-	defaults write com.apple.dock persistent-apps -array
-fi
-
-echo "make Dock auto-hide immediately"
-defaults write com.apple.dock autohide -bool true
-defaults write com.apple.dock autohide-delay -float 0
-defaults write com.apple.dock autohide-time-modifier -float 0
-
-echo "use 36px tiles in Dock"
-defaults write com.apple.dock tilesize -int 36
-
-echo "put Dock on the right"
-defaults write com.apple.dock orientation right
-
-echo "minimize windows with 'Scale effect'"
-defaults write com.apple.dock mineffect scale
-
-echo "don't show recent apps in Dock"
-defaults write com.apple.dock show-recents 0
 
 echo "restarting Dock"
 killall Dock
