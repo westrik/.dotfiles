@@ -17,7 +17,7 @@ brew cask install --force istat-menus
 brew cask install iterm2
 brew cask install clion
 brew cask install skim
-brew cask install 1password
+brew cask install 1password-cli
 brew cask install --force spotify
 brew cask install vlc
 brew cask install transmit
