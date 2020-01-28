@@ -33,7 +33,7 @@ if ! command -v cargo >/dev/null 2>&1; then
 fi
 
 
-pip install --user --upgrade pip wheel neovim
+pip3 install --user --upgrade pip wheel neovim
 
 scripts_bin=$HOME/.local/bin
 mkdir -p $scripts_bin
