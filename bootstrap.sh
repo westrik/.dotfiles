@@ -8,7 +8,6 @@ sudo -v
 # keep-alive: update existing `sudo` time stamp until script is done
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-if ! command -v  >/dev/null 2>&1; then
 if [ -f "$SECRETS_FILE" ]; then
 	# TODO: ask for a GITHUB_API_TOKEN and save it to ~/.localrc
 	touch "$SECRETS_FILE"
@@ -136,7 +135,7 @@ killall Finder
 echo "restarting SystemUIServer"
 killall SystemUIServer
 
-echo "installing homebrew"
+echo "installing Homebrew"
 if ! command -v brew >/dev/null 2>&1; then
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
@@ -169,3 +168,10 @@ brew install terraform
 brew install packer
 brew install consul
 brew install yarn
+
+echo "add newly installed apps to Dock"
+for app in Firefox Telegram CLion iTerm Sketch OmniGraffle; do
+	defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/$app.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+done
+echo "restart Dock (again)"
+killall Dock
