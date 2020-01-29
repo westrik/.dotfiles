@@ -4,8 +4,6 @@ set -euo pipefail
 
 SECRETS_FILE="$HOME/.localrc"
 DOTFILES_FOLDER="$HOME/.dotfiles"
-EMAIL_ADDRESS="m@ttwestrik.com"
-GITHUB_USERNAME="westrik"
 
 sudo -v
 # keep-alive: update existing `sudo` time stamp until script is done
@@ -19,8 +17,10 @@ source "$SECRETS_FILE"
 
 read -p "generate an SSH key? (y/n): " should_gen_key
 if [ $should_gen_key = "y" ]; then
+	read -p "email address: " email_address
+	read -p "GitHub username: " github_username
 	echo "generating an ed25519 key..."
-	ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$EMAIL_ADDRESS"
+	ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$email_address"
 
 	eval "$(ssh-agent -s)"
 
@@ -29,7 +29,7 @@ if [ $should_gen_key = "y" ]; then
 	# note: personal access token needs at least `write:public_key`
 	echo "uploading public key to GitHub..."
 	read -p "what should the key be called?: " key_name
-	curl -u "$GITHUB_USERNAME:$GITHUB_API_TOKEN" --data "{\"title\":\"$key_name\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys
+	curl -u "$github_username:$GITHUB_API_TOKEN" --data "{\"title\":\"$key_name\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys
 fi
 
 # macOS defaults configuration
