@@ -78,6 +78,7 @@ cheat() {
 	curl "cheat.sh/$1?style=bw"
 }
 
+
 # commands
 alias c='clear'
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
@@ -183,6 +184,15 @@ rmbranch() {
 	printf "$(dim red "(ctrl-c to abort)")\n"
 	sleep 2
 	git push --delete origin $branch_name && git branch -d $branch_name
+}
+rgit() {
+	for dir in `ls "$SRC_FOLDER"`; do
+		echo ""
+		echo "running in $dir:"
+		cd "$dir"
+		git "$@"
+		cd -
+	done
 }
 
 # cargo
