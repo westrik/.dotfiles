@@ -3,9 +3,9 @@
 set -euo pipefail
 
 SECRETS_FILE="$HOME/.localrc"
+DOTFILES_FOLDER="$HOME/.dotfiles"
 EMAIL_ADDRESS="m@ttwestrik.com"
 GITHUB_USERNAME="westrik"
-DOTFILES_LOCATION="$HOME/.dotfiles"
 
 sudo -v
 # keep-alive: update existing `sudo` time stamp until script is done
@@ -179,7 +179,7 @@ killall Finder
 echo "restarting SystemUIServer"
 killall SystemUIServer
 
-if [ ! -d "$DOTFILES_LOCATION" ]; then
+if [ ! -d "$DOTFILES_FOLDER" ]; then
 	echo "installing dotfiles"
 	cd $HOME
 	git clone --recurse-submodules -j8 git@github.com:westrik/.dotfiles.git
@@ -189,5 +189,8 @@ echo "syncing all GitHub repos"
 ghsync
 
 # set up services
+echo "starting nginx"
+sudo cp "$DOTFILES_FOLDER/configs/nginx.conf" "/usr/local/etc/nginx/nginx.conf"
 sudo brew services restart nginx
+echo "starting postgres"
 brew services restart postgresql
