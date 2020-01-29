@@ -189,8 +189,19 @@ echo "syncing all GitHub repos"
 ghsync
 
 # set up services
-echo "starting nginx"
+echo "configure /etc/hosts"
+if ! grep -q 'westrik' /etc/hosts; then
+	echo "127.0.0.1 westrik.world" | sudo tee -a /etc/hosts >/dev/null
+	echo "127.0.0.1 api.westrik.world" | sudo tee -a /etc/hosts >/dev/null
+fi
+
+
+echo "copy nginx.conf to /usr/local/etc/nginx/"
 sudo cp "$DOTFILES_FOLDER/configs/nginx.conf" "/usr/local/etc/nginx/nginx.conf"
+
+echo "starting nginx"
+sudo mkdir -p /Library/Logs/nginx/
 sudo brew services restart nginx
+
 echo "starting postgres"
 brew services restart postgresql
