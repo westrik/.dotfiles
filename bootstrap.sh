@@ -3,34 +3,35 @@
 set -euo pipefail
 
 SECRETS_FILE="$HOME/.localrc"
+EMAIL_ADDRESS="m@ttwestrik.com"
+GITHUB_USERNAME="westrik"
 
 sudo -v
 # keep-alive: update existing `sudo` time stamp until script is done
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-if [ -f "$SECRETS_FILE" ]; then
-	# TODO: ask for a GITHUB_API_TOKEN and save it to ~/.localrc
-	touch "$SECRETS_FILE"
+if [ ! -f "$SECRETS_FILE" ]; then
+	read -p "enter a GitHub personal access token: " github_token
+	echo "export GITHUB_API_TOKEN=\"$github_token\"" > "$SECRETS_FILE"
 fi
+source "$SECRETS_FILE"
 
-# generate SSH key and copy public key to clipboard
 read -p "generate an SSH key? (y/n): " should_gen_key
 if [ $should_gen_key = "y" ]; then
-	read -p "what's your email: " email
-
 	echo "generating an ed25519 key..."
-	ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$email"
+	ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$EMAIL_ADDRESS"
 
 	eval "$(ssh-agent -s)"
 
-	echo "your new public key: "
-	cat ~/.ssh/id_ed25519.pub
+	pub_key=$(cat ~/.ssh/id_ed25519.pub)
 
-	# TODO: upload new pubkey to GitHub, https://developer.github.com/v3/users/keys/#create-a-public-key
+	# note: personal access token needs at least `write:public_key`
+	echo "uploading public key to GitHub..."
+	read -p "what should the key be called?: " key_name
+	curl -u "$GITHUB_USERNAME:$GITHUB_API_TOKEN" --data "{\"title\":\"$key_name\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys
 fi
 
 # macOS defaults configuration
-
 read -p "change hostname? (y/n): " should_change_hostname
 if [ $should_change_hostname = "y" ]; then
 	read -p "new hostname: " hostname
@@ -39,12 +40,6 @@ if [ $should_change_hostname = "y" ]; then
 	sudo scutil --set HostName "$hostname"
 	sudo scutil --set LocalHostName "$hostname"
 	sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$hostname"
-fi
-
-read -p "clear default tiles from Dock? (y/n): " should_clear_dock
-if [ $should_clear_dock = "y" ]; then
-	echo "clearing Dock"
-	defaults write com.apple.dock persistent-apps -array
 fi
 
 echo "make Dock auto-hide immediately"
@@ -135,43 +130,53 @@ killall Finder
 echo "restarting SystemUIServer"
 killall SystemUIServer
 
-echo "installing Homebrew"
-if ! command -v brew >/dev/null 2>&1; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+read -p "install homebrew deps? (y/n) " should_install
+if [ $should_install = "y" ]; then
+	echo "installing Homebrew"
+	if ! command -v brew >/dev/null 2>&1; then
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	fi
+	brew install cask
+
+	echo "installing Mac apps"
+	brew cask install firefox
+	brew cask install telegram
+	brew cask install spectacle
+	brew cask install alfred
+	brew cask install --force istat-menus
+	brew cask install iterm2
+	brew cask install clion
+	brew cask install skim
+	brew cask install 1password-cli
+	brew cask install --force spotify
+	brew cask install vlc
+	brew cask install transmit
+	brew cask install omnigraffle
+	brew cask install sketch
+
+	echo "installing CLI tools"
+	brew install neovim
+	brew install tmux
+	brew install ripgrep
+	brew install jq
+	brew install terminal-notifier
+	brew install python3
+	brew install terraform
+	brew install packer
+	brew install consul
+	brew install yarn
 fi
-brew install cask
 
-echo "installing Mac apps"
-brew cask install firefox
-brew cask install telegram
-brew cask install spectacle
-brew cask install alfred
-brew cask install --force istat-menus
-brew cask install iterm2
-brew cask install clion
-brew cask install skim
-brew cask install 1password-cli
-brew cask install --force spotify
-brew cask install vlc
-brew cask install transmit
-brew cask install omnigraffle
-brew cask install sketch
+read -p "reset Dock to custom defaults? (y/n): " should_clear_dock
+if [ $should_clear_dock = "y" ]; then
+	defaults write com.apple.dock persistent-apps -array
 
-echo "installing CLI tools"
-brew install neovim
-brew install tmux
-brew install ripgrep
-brew install jq
-brew install terminal-notifier
-brew install python3
-brew install terraform
-brew install packer
-brew install consul
-brew install yarn
+	for app in Firefox Telegram CLion iTerm Spotify Sketch OmniGraffle; do
+		defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/$app.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+	done
 
-echo "add newly installed apps to Dock"
-for app in Firefox Telegram CLion iTerm Sketch OmniGraffle; do
-	defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/$app.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
-done
-echo "restart Dock (again)"
-killall Dock
+	echo "restarting Dock (again)"
+	killall Dock
+fi
+
+# TODO: clone dotfiles, run setup.sh, then run ghsync
