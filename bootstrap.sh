@@ -56,16 +56,16 @@ if [ $should_install = "y" ]; then
 	brew cask install telegram
 	brew cask install spectacle
 	brew cask install alfred
-	brew cask install --force istat-menus
 	brew cask install iterm2
 	brew cask install clion
 	brew cask install skim
 	brew cask install 1password-cli
-	brew cask install --force spotify
 	brew cask install vlc
 	brew cask install transmit
 	brew cask install omnigraffle
 	brew cask install sketch
+	brew cask install --force istat-menus
+	brew cask install --force spotify
 
 	echo "installing CLI tools"
 	brew install neovim
@@ -74,10 +74,12 @@ if [ $should_install = "y" ]; then
 	brew install jq
 	brew install terminal-notifier
 	brew install python3
+	brew install yarn
+	brew install nginx
+	brew install postgres
 	brew install terraform
 	brew install packer
 	brew install consul
-	brew install yarn
 fi
 
 read -p "reset Dock to custom defaults? (y/n): " should_clear_dock
@@ -185,3 +187,7 @@ if [ ! -d "$DOTFILES_LOCATION" ]; then
 fi
 echo "syncing all GitHub repos"
 ghsync
+
+# set up services
+sudo brew services restart nginx
+brew services restart postgresql
