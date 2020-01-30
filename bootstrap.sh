@@ -76,8 +76,6 @@ if [ $should_install = "y" ]; then
 	brew cask install sketch
 	brew cask install --force istat-menus
 	brew cask install --force spotify
-	brew tap homebrew/cask-drivers
-	brew cask install yubico-yubikey-manager
 
 	echo ""
 	echo "installing CLI tools"
@@ -86,8 +84,9 @@ if [ $should_install = "y" ]; then
 	brew install ripgrep
 	brew install jq
 	brew install terminal-notifier
-	brew install ykman # yubikey manager (CLI)
-	brew install gnupg
+
+	echo ""
+	echo "installing devenv tooling"
 	brew install python3
 	brew install yarn
 	brew install nginx
@@ -95,6 +94,14 @@ if [ $should_install = "y" ]; then
 	brew install terraform
 	brew install packer
 	brew install consul
+
+	echo ""
+	echo "installing security-related software"
+	brew install gnupg
+	brew install yubikey-personalization
+	brew install hopenpgp-tools
+	brew install ykman
+	brew install pinentry-mac
 fi
 
 echo ""
