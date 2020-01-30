@@ -69,13 +69,15 @@ if [ $should_install = "y" ]; then
 	brew cask install iterm2
 	brew cask install clion
 	brew cask install skim
-	brew cask install 1password-cli
+	brew cask install keepassxc
 	brew cask install vlc
 	brew cask install transmit
 	brew cask install omnigraffle
 	brew cask install sketch
 	brew cask install --force istat-menus
 	brew cask install --force spotify
+	brew tap homebrew/cask-drivers
+	brew cask install yubico-yubikey-manager
 
 	echo ""
 	echo "installing CLI tools"
@@ -84,6 +86,8 @@ if [ $should_install = "y" ]; then
 	brew install ripgrep
 	brew install jq
 	brew install terminal-notifier
+	brew install ykman # yubikey manager (CLI)
+	brew install gnupg
 	brew install python3
 	brew install yarn
 	brew install nginx
