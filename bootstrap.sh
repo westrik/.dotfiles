@@ -101,7 +101,6 @@ if [ $should_install = "y" ]; then
 	brew install yubikey-personalization
 	brew install hopenpgp-tools
 	brew install ykman
-	brew install pinentry-mac
 fi
 
 echo ""

@@ -53,6 +53,8 @@ link_file gitconfig .gitconfig
 link_file gitignore_global .gitignore_global
 mkdir -p $HOME/.config/nvim/
 link_file init.vim .config/nvim/init.vim
+link_file gpg.conf .gnupg/gpg.conf
+link_file gpg-agent.conf .gnupg/gpg-agent.conf
 link_file zpreztorc .zpreztorc
 link_dir zprezto .zprezto
 mkdir -p .config/kitty

@@ -34,7 +34,12 @@ setopt histignorespace
 # -----------------------------------------------------------------------
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.fastlane/bin:$PATH
+
+# use gpg-agent for SSH
 export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye > /dev/null
+gpgconf --launch gpg-agent
 
 # fix Python OpenSSL on Catalina
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_FALLBACK_LIBRARY_PATH
@@ -131,8 +136,8 @@ writecheck() {
 	style $file_to_check
 }
 randp() {
-	LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~' < /dev/urandom | head -c${1:-20}
-	echo
+	gpg --gen-random --armor 0 36
+
 }
 pdf2svg() {
 	pdf_name=$1
