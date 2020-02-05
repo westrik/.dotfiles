@@ -9,34 +9,6 @@ sudo -v
 # keep-alive: update existing `sudo` time stamp until script is done
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-if [ ! -f "$SECRETS_FILE" ]; then
-	read -p "enter a GitHub personal access token: " github_token
-	echo "export GITHUB_API_TOKEN=\"$github_token\"" > "$SECRETS_FILE"
-fi
-source "$SECRETS_FILE"
-
-echo ""
-read -p "generate an SSH key? (y/n): " should_gen_key
-if [ $should_gen_key = "y" ]; then
-	read -p "email address: " email_address
-	echo ""
-	echo "generating an ed25519 key..."
-	ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$email_address"
-
-	eval "$(ssh-agent -s)"
-
-	# note: personal access token needs at least `write:public_key`
-	echo ""
-	echo "uploading public key to GitHub..."
-	echo ""
-	read -p "GitHub username: " github_username
-	read -p "what should the key be called?: " key_name
-	pub_key=$(cat ~/.ssh/id_ed25519.pub)
-	echo "response from GitHub: "
-	curl -u "$github_username:$GITHUB_API_TOKEN" --data "{\"title\":\"$key_name\",\"key\":\"$pub_key\"}" https://api.github.com/user/keys
-	echo ""
-fi
-
 echo ""
 read -p "change hostname? (y/n): " should_change_hostname
 if [ $should_change_hostname = "y" ]; then
@@ -101,6 +73,23 @@ if [ $should_install = "y" ]; then
 	brew install yubikey-personalization
 	brew install hopenpgp-tools
 	brew install ykman
+fi
+
+echo ""
+read -p "configure YubiKey for GPG? (y/n) " should_setup_yubikey
+if [ $should_setup_yubikey = "y" ]; then
+	read -p "press enter when YubiKey is plugged in"
+	echo ""
+	read -p "enter GPG key ID" KEYID
+	gpg --recv $KEYID
+	echo ""
+	echo "------------------------------------------------------"
+	echo "editing imported key..."
+	echo "- run 'trust' & select '5' to ultimately trust the key"
+	echo "- run 'quit' to exit"
+	echo "------------------------------------------------------"
+	echo ""
+	gpg --edit-key $KEYID
 fi
 
 echo ""
@@ -222,6 +211,11 @@ fi
 
 echo ""
 echo "syncing all GitHub repos"
+if [ ! -f "$SECRETS_FILE" ]; then
+	read -p "enter a GitHub personal access token: " github_token
+	echo "export GITHUB_API_TOKEN=\"$github_token\"" > "$SECRETS_FILE"
+fi
+source "$SECRETS_FILE"
 ghsync
 
 # set up services
