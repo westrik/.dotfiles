@@ -1,11 +1,13 @@
 #!/bin/sh
 
 # Sync all repositories in the account associated with a GitHub API token to a local folder.
-# Expects $SRC_FOLDER and $GITHUB_API_TOKEN to be set.
 
 CHUNK_SIZE=100
 
 source $HOME/.dotfiles/env_scripts/colors.sh
+# load $SRC_FOLDER
+source $HOME/.dotfiles/env_scripts/folders.sh
+# load $GITHUB_API_TOKEN
 source $HOME/.localrc
 
 get_repo_data() {
