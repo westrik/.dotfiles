@@ -59,6 +59,7 @@ link_file zpreztorc .zpreztorc
 link_dir zprezto .zprezto
 mkdir -p .config/kitty
 link_file kitty.conf .config/kitty/kitty.conf
+touch $HOME/.hushlogin
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	bash "$DIR/jobs/set_up_recurring_jobs.sh"
