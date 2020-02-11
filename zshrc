@@ -93,8 +93,10 @@ alias q='exit'
 alias v='vim'
 alias vi='vim'
 alias vv='vim ~/.dotfiles/init.vim'
-alias x='xargs' # clobber xquartz
 alias zv='vim ~/.zshrc'
+alias t='tmux'
+alias ta='tmux attach'
+alias x='xargs' # clobber xquartz
 alias zh='less ~/.zhistory'
 alias zrg='rg < ~/.zshrc'
 alias zr!='. ~/.zshrc'
@@ -151,7 +153,7 @@ pdf2svg() {
 # folder jumping
 alias n="cd $NOTES_FOLDER"
 alias p="cd $SRC_FOLDER"
-t() {
+tmp() {
 	cd $(mktemp -d /tmp/$1.XXXX)
 }
 

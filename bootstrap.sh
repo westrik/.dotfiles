@@ -227,9 +227,11 @@ if [ ! -d "$DOTFILES_FOLDER" ]; then
 	# if gpg.conf or gpg-agent.conf exist and are not symlinks, delete them
 	if [ ! -L "$HOME/.gnupg/gpg.conf" ]; then
 		echo "deleting temporary gpg.conf"
+		rm -f $HOME/.gnupg/gpg.conf
 	fi
 	if [ ! -L "$HOME/.gnupg/gpg-agent.conf" ]; then
 		echo "deleting temporary gpg-agent.conf"
+		rm -f $HOME/.gnupg/gpg-agent.conf
 	fi
 
 	bash .dotfiles/setup.sh
