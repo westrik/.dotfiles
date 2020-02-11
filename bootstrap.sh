@@ -79,9 +79,13 @@ echo ""
 read -p "configure YubiKey for GPG? (y/n) " should_setup_yubikey
 if [ $should_setup_yubikey = "y" ]; then
 	read -p "press enter when YubiKey is plugged in"
+
 	echo ""
-	read -p "enter GPG key ID" KEYID
+	read -p "enter GPG key ID: " KEYID
+
+	echo "fetching public key for $KEYID..."
 	gpg --recv $KEYID
+
 	echo ""
 	echo "------------------------------------------------------"
 	echo "editing imported key..."
@@ -90,6 +94,11 @@ if [ $should_setup_yubikey = "y" ]; then
 	echo "------------------------------------------------------"
 	echo ""
 	gpg --edit-key $KEYID
+
+	echo ""
+	echo "installing temporary gpg and gpg-agent configs"
+	curl -so $HOME/.gnupg/gpg.conf https://raw.githubusercontent.com/westrik/.dotfiles/master/gpg.conf
+	curl -so $HOME/.gnupg/gpg-agent.conf https://raw.githubusercontent.com/westrik/.dotfiles/master/gpg-agent.conf
 fi
 
 echo ""
@@ -201,11 +210,28 @@ echo ""
 echo "restarting SystemUIServer"
 killall SystemUIServer
 
+
+echo ""
+echo "setting up gpg and gpg-agent in current shell"
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye > /dev/null
+gpgconf --launch gpg-agent
+
 if [ ! -d "$DOTFILES_FOLDER" ]; then
 	echo ""
 	echo "installing dotfiles"
 	cd $HOME
 	git clone --recurse-submodules -j8 git@github.com:westrik/.dotfiles.git
+
+	# if gpg.conf or gpg-agent.conf exist and are not symlinks, delete them
+	if [ ! -L "$HOME/.gnupg/gpg.conf" ]; then
+		echo "deleting temporary gpg.conf"
+	fi
+	if [ ! -L "$HOME/.gnupg/gpg-agent.conf" ]; then
+		echo "deleting temporary gpg-agent.conf"
+	fi
+
 	bash .dotfiles/setup.sh
 fi
 
@@ -216,7 +242,7 @@ if [ ! -f "$SECRETS_FILE" ]; then
 	echo "export GITHUB_API_TOKEN=\"$github_token\"" > "$SECRETS_FILE"
 fi
 source "$SECRETS_FILE"
-ghsync
+$HOME/.local/bin/ghsync
 
 # set up services
 echo ""
