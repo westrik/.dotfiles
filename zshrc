@@ -201,6 +201,17 @@ rgit() {
 		cd -
 	done
 }
+pr_init() {
+	pr_title=$1
+	branch=$2
+	base_branch=${3:-master}
+	printf "$(color blue "creating new branch")\n"
+	git checkout -b "$branch"
+	printf "$(color blue "committing")\n"
+	git commit --all --allow-empty -m "$pr_title"
+	printf "$(color blue "creating PR")\n"
+	gh pr create --base "$base_branch" --draft --title "$pr_title" --body "[TODO]"
+}
 
 # cargo
 alias cc='cargo check' # clobber llvm

@@ -48,6 +48,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'scrooloose/nerdtree'
 call plug#end()
 
+set rtp+=/usr/local/opt/fzf
+
 " ------------------------------
 " Configuration
 " ------------------------------

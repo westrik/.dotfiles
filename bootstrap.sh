@@ -54,6 +54,7 @@ if [ $should_install = "y" ]; then
 	brew install neovim
 	brew install tmux
 	brew install ripgrep
+	brew install fzf
 	brew install jq
 	brew install terminal-notifier
 
@@ -66,6 +67,7 @@ if [ $should_install = "y" ]; then
 	brew install terraform
 	brew install packer
 	brew install consul
+	brew install gnuplot
 
 	echo ""
 	echo "installing security-related software"
