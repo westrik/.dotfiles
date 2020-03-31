@@ -47,6 +47,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'neovim/nvim-lsp'
 call plug#end()
 
+
 set rtp+=/usr/local/opt/fzf
 
 " ------------------------------
@@ -80,3 +81,74 @@ nnoremap <leader>n :NERDTree
 
 " Close NERDTree if it's the only buffer open
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+" LSP config
+" -----------------
+"
+function! LSPSetup()
+lua << EOF
+require'nvim_lsp'.bashls.setup{};
+require'nvim_lsp'.cssls.setup{};
+require'nvim_lsp'.jsonls.setup{};
+require'nvim_lsp'.pyls.setup{};
+require'nvim_lsp'.rust_analyzer.setup{};
+require'nvim_lsp'.terraformls.setup{};
+require'nvim_lsp'.tsserver.setup{};
+EOF
+endfunction
+
+function! LSPUpdate()
+  LspInstall bashls
+  LspInstall cssls
+  LspInstall jsonls
+  LspInstall pyls
+  LspInstall rust_analyzer
+  LspInstall terraformls
+  LspInstall tsserver
+endfunction
+
+call LSPSetup()
+
+autocmd Filetype \
+      \bash,
+      \sh,
+      \css,
+      \scss,
+      \less,
+      \vim,
+      \javascript,
+      \javascriptreact,
+      \javascript.jsx,
+      \typescript,
+      \typescriptreact,
+      \typescript.tsx,
+      \terraform,
+      \rust,
+      \python,
+      \json,
+      \ setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gF    <cmd>lua vim.lsp.buf.formatting()<CR>
+
+
+function! LSPHover()
+lua << EOF
+local util = require 'vim.lsp.util'
+local params = util.make_position_params()
+vim.lsp.buf.hover()
+EOF
+endfunction
+
+function! LSPRename()
+	let s:newName = input('Enter new name: ', expand('<cword>'))
+	echom "s:newName = " . s:newName
+	lua vim.lsp.buf.rename(s:newName)
+endfunction
