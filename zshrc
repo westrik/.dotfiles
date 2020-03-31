@@ -157,6 +157,16 @@ tmp() {
 	cd $(mktemp -d /tmp/$1.XXXX)
 }
 
+# fancy man page
+function xman() {
+    for i in "$@"; do
+        if [ $(command -v $i) ]; then
+            open x-man-page://$i
+        elif; then
+            printf "Can't find command: %s\n" "$i" >&2
+        fi
+    done
+}
 
 # git
 alias gu!='(warn_alias gu!)
@@ -216,11 +226,12 @@ pr_init() {
 # cargo
 alias cc='cargo check' # clobber llvm
 alias cbr='cargo build --release'
+alias crr='cargo run --release'
 alias cb='cargo build'
 alias ct='cargo test'
 alias cf='cargo fmt'
 alias cpr='(remind_alias cpr)
-	cargo test && cargo check && cargo fmt'
+	cargo test && cargo clippy --all && cargo fmt'
 
 # yarn
 alias yr='yarn run'
