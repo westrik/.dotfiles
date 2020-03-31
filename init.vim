@@ -1,10 +1,5 @@
 
 
-" TODO:
-" - consider replacing deoplete with coc.nvim (https://github.com/neoclide/coc.nvim)
-"   	- LSP integration similar to VSCode
-
-
 " ------------------------------
 " Dependencies
 " ------------------------------
@@ -46,6 +41,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'preservim/nerdtree'
+
+
+  " LSP
+  Plug 'neovim/nvim-lsp'
 call plug#end()
 
 set rtp+=/usr/local/opt/fzf
@@ -66,13 +65,14 @@ colorscheme solarized
 " Leader commands
 " -----------------
 
-let g:mapleader = ','
+let g:mapleader = ' '
 
 nnoremap <leader>h <C-w>h
 nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 nnoremap <leader>f :FZF
+nnoremap <leader>n :NERDTree
 
 
 " Automatic behavior
