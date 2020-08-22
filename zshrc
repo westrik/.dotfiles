@@ -29,11 +29,22 @@ compinit
 # don't save lines beginning in spaces in history
 setopt histignorespace
 
-
 # PATH SETUP
 # -----------------------------------------------------------------------
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.fastlane/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.fastlane/bin:$PATH"
+export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="/usr/local/Cellar/mtr/0.93_1/sbin:$PATH"
+eval "$(pyenv init -)"
+
+# export PATH=~/_/scratch/fuchsia/.jiri_root/bin:$PATH
+# source ~/_/scratch/fuchsia/scripts/fx-env.sh
+#
+# export LIBGS="$(brew --prefix ghostscript)/lib/libgs.9.dylib"
+
+export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
+
+
 
 # use gpg-agent for SSH
 export GPG_TTY=$(tty)
@@ -101,6 +112,8 @@ alias zh='less ~/.zhistory'
 alias zrg='rg < ~/.zshrc'
 alias zr!='. ~/.zshrc'
 
+alias tika="java -jar ~/Downloads/tika-app-1.24.1.jar"
+
 # clobber utilities with preferred options
 alias python='python3'
 alias pip='pip3'
@@ -153,6 +166,7 @@ pdf2svg() {
 # folder jumping
 alias n="cd $NOTES_FOLDER"
 alias p="cd $SRC_FOLDER"
+alias s="cd $SCRATCH_FOLDER"
 tmp() {
 	cd $(mktemp -d /tmp/$1.XXXX)
 }
@@ -178,6 +192,7 @@ alias gll="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset\
 	%C(yellow)%d%Creset %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative"
 alias gl='gll --color=always | head' # globber coreutils ls
+alias glb='git lb'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gs='git status' # clobber ghostscript
@@ -187,10 +202,9 @@ alias gco='git checkout'
 alias gcom='git checkout master'
 alias gb='git -P branch'
 alias gms='git merge --squash'
-alias gre='git rebase'
-alias grem='gre master'
-alias grec='gre --continue'
-alias grea='gre --abort'
+alias grb='git rebase'
+alias grbc='gre --continue'
+alias grba='gre --abort'
 alias gppru='git pull --prune'
 alias grm="(warn_alias grm)
 	git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
@@ -238,3 +252,14 @@ alias yr='yarn run'
 alias fukjs='rm -rf node_modules;yarn install'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# terraform
+alias tf='terraform'
+
+# Wasmer
+export WASMER_DIR="/Users/matt/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"

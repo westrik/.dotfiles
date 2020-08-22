@@ -15,7 +15,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-surround'                   " Add quote substition commands
 
   " Appearance
-  Plug 'altercation/vim-colors-solarized'     " Solarized theme
+  "Plug 'altercation/vim-colors-solarized'     " Solarized theme
 
   " Auto-completion
   "Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -60,7 +60,7 @@ filetype plugin indent on
 set number
 set mouse=a
 set background=dark
-colorscheme solarized
+"colorscheme solarized
 
 
 " Leader commands
