@@ -40,7 +40,6 @@ if [ $should_install = "y" ]; then
         firefox \
         insomnia \
         iterm2 \
-        keepassxc \
         netnewswire \
         omnigraffle \
         sketch \
@@ -49,6 +48,7 @@ if [ $should_install = "y" ]; then
         telegram \
         transmit \
         vlc
+        # not installed right now: keepassxc
     brew cask install --force \
         istat-menus \
         spotify
