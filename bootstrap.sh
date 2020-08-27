@@ -53,47 +53,6 @@ if [ $should_install = "y" ]; then
         istat-menus \
         spotify
 
-    # adns			fswatch			jpeg			libtiff			nspr			snappy
-    # ansible			fx			jpeg-turbo		libtool			nss			speex
-    # aom			fzf			jq			libunistring		onefetch		sphinx-doc
-    # apr			gcc			json-c			libusb			oniguruma		sqlite
-    # apr-util		gd			krb5			libuv			open-mpi		srt
-    # autoconf		gdbm			lame			libvidstab		opencore-amr		step
-    # automake		gdk-pixbuf		leptonica		libvorbis		openexr			swift-format
-    # aws-sam-cli		gettext			libarchive		libvpx			openjpeg		swiftlint
-    # awscli			gh			libass			libvterm		openslide		swig
-    # bash			ghostscript		libassuan		libxkbcommon		openssl@1.1		szip
-    # bdw-gc			giflib			libb2			libxml2			opus			terminal-notifier
-    # berkeley-db		git			libbluray		libyaml			orc			terraform
-    # binaryen		glib			libcerf			libyubikey		p11-kit			tesseract
-    # bison			gmp			libde265		little-cms2		packer			texi2html
-    # borgbackup		gnu-cobol		libev			lua			pango			tfsec
-    # c-ares			gnu-getopt		libevent		lua@5.1			pcre			theora
-    # cairo			gnupg			libexif			luajit			pcre2			tiger-vnc
-    # cargo-c			gnuplot			libffi			lz4			pgcli			tmux
-    # cask			gnutls			libgcrypt		lzo			pinentry		tree
-    # cfitsio			go			libgit2			mandoc			pinentry-mac		uchardet
-    # cmake			gobject-introspection	libgpg-error		meson			pixman			unbound
-    # consul			graphite2		libgsf			mkcert			pkg-config		unibilium
-    # coreutils		graphviz		libheif			modd			poetry			vapoursynth
-    # curl			gts			libidn2			mozjpeg			poppler			vips
-    # dav1d			guile			libimagequant		mpfr			postgresql		watch
-    # deno			harfbuzz		libksba			mpv			pre-commit		watchman
-    # devd			hdf5			liblqr			msgpack			protobuf		webp
-    # dnsmasq			hopenpgp-tools		libmatio		mtr			pyenv			wget
-    # docbook			htop			libmpc			mujs			python@3.7		x264
-    # docbook-xsl		hwloc			libogg			mysql			python@3.8		x265
-    # emacs			icu4c			libomp			nasm			qt			xmlto
-    # fd			ilmbase			libpng			ncurses			rav1e			xvid
-    # ffmpeg			imagemagick		libpq			netpbm			readline		xz
-    # fftw			imlib2			librsvg			nettle			ripgrep			yarn
-    # flac			intltool		libsamplerate		nghttp2			rtmpdump		yasm
-    # fltk			isl			libsndfile		nginx			rubberband		ykman
-    # fontconfig		itstool			libsoxr			ninja			rust			ykpers
-    # freetype		jansson			libssh2			nmap			scons			youtube-dl
-    # frei0r			jasper			libtasn1		node			sdl2			zimg
-    # fribidi			jemalloc		libtermkey		npth			shared-mime-info	zstd
-
     echo ""
     echo "installing CLI tools"
     brew install \
@@ -105,16 +64,38 @@ if [ $should_install = "y" ]; then
         tmux
 
     echo ""
-    echo "installing devenv tooling"
+    echo "installing devenv tools"
     brew install \
-        consul \
+        aws-sam-cli \
+        awscli \
+        binaryen \
+        cmake \
+        flatbuffers \
+        git \
         gnuplot \
-        nginx \
+        graphviz \
+        openssl@1.1 \
         packer \
-        postgres \
         python3 \
         terraform \
+        webp \
         yarn
+        # not installed for now: llvm, swiftlint
+
+    echo ""
+    echo "installing devenv services"
+    brew install \
+        consul \
+        dnsmasq \
+        minio/stable/minio \
+        nginx
+
+    echo ""
+    echo "installing databases"
+    brew install \
+        mysql \
+        postgres \
+        sqlite
 
     echo ""
     echo "installing security-related software"
@@ -123,6 +104,12 @@ if [ $should_install = "y" ]; then
         hopenpgp-tools \
         ykman \
         yubikey-personalization
+
+    echo ""
+    echo "installing other software"
+    brew install \
+        borgbackup \
+        youtube-dl
 fi
 
 echo ""
