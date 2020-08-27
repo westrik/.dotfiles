@@ -12,109 +12,157 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 echo ""
 read -p "change hostname? (y/n): " should_change_hostname
 if [ $should_change_hostname = "y" ]; then
-	read -p "new hostname: " hostname
+    read -p "new hostname: " hostname
 
-	sudo scutil --set ComputerName "$hostname"
-	sudo scutil --set HostName "$hostname"
-	sudo scutil --set LocalHostName "$hostname"
-	sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$hostname"
+    sudo scutil --set ComputerName "$hostname"
+    sudo scutil --set HostName "$hostname"
+    sudo scutil --set LocalHostName "$hostname"
+    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$hostname"
 fi
 
 echo ""
 read -p "install homebrew deps? (y/n) " should_install
 if [ $should_install = "y" ]; then
-	if ! command -v brew >/dev/null 2>&1; then
-		echo ""
-		echo "installing Homebrew"
-		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	fi
-	echo ""
-	echo "installing homebrew cask"
-	brew install cask
+    if ! command -v brew >/dev/null 2>&1; then
+        echo ""
+        echo "installing Homebrew"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+    echo ""
+    echo "installing homebrew cask"
+    brew install cask
 
-	echo ""
-	echo "installing Mac apps"
-	brew cask install firefox
-	brew cask install telegram
-	brew cask install spectacle
-	brew cask install alfred
-	brew cask install iterm2
-	brew cask install clion
-	brew cask install skim
-	brew cask install keepassxc
-	brew cask install vlc
-	brew cask install transmit
-	brew cask install omnigraffle
-	brew cask install sketch
-	brew cask install --force istat-menus
-	brew cask install --force spotify
+    echo ""
+    echo "installing Mac apps"
+    brew cask install \
+        alfred \
+        clion \
+        firefox \
+        insomnia \
+        iterm2 \
+        keepassxc \
+        netnewswire \
+        omnigraffle \
+        sketch \
+        skim \
+        spectacle \
+        telegram \
+        transmit \
+        vlc
+    brew cask install --force \
+        istat-menus \
+        spotify
 
-	echo ""
-	echo "installing CLI tools"
-	brew install neovim
-	brew install tmux
-	brew install ripgrep
-	brew install fzf
-	brew install jq
-	brew install terminal-notifier
+    # adns			fswatch			jpeg			libtiff			nspr			snappy
+    # ansible			fx			jpeg-turbo		libtool			nss			speex
+    # aom			fzf			jq			libunistring		onefetch		sphinx-doc
+    # apr			gcc			json-c			libusb			oniguruma		sqlite
+    # apr-util		gd			krb5			libuv			open-mpi		srt
+    # autoconf		gdbm			lame			libvidstab		opencore-amr		step
+    # automake		gdk-pixbuf		leptonica		libvorbis		openexr			swift-format
+    # aws-sam-cli		gettext			libarchive		libvpx			openjpeg		swiftlint
+    # awscli			gh			libass			libvterm		openslide		swig
+    # bash			ghostscript		libassuan		libxkbcommon		openssl@1.1		szip
+    # bdw-gc			giflib			libb2			libxml2			opus			terminal-notifier
+    # berkeley-db		git			libbluray		libyaml			orc			terraform
+    # binaryen		glib			libcerf			libyubikey		p11-kit			tesseract
+    # bison			gmp			libde265		little-cms2		packer			texi2html
+    # borgbackup		gnu-cobol		libev			lua			pango			tfsec
+    # c-ares			gnu-getopt		libevent		lua@5.1			pcre			theora
+    # cairo			gnupg			libexif			luajit			pcre2			tiger-vnc
+    # cargo-c			gnuplot			libffi			lz4			pgcli			tmux
+    # cask			gnutls			libgcrypt		lzo			pinentry		tree
+    # cfitsio			go			libgit2			mandoc			pinentry-mac		uchardet
+    # cmake			gobject-introspection	libgpg-error		meson			pixman			unbound
+    # consul			graphite2		libgsf			mkcert			pkg-config		unibilium
+    # coreutils		graphviz		libheif			modd			poetry			vapoursynth
+    # curl			gts			libidn2			mozjpeg			poppler			vips
+    # dav1d			guile			libimagequant		mpfr			postgresql		watch
+    # deno			harfbuzz		libksba			mpv			pre-commit		watchman
+    # devd			hdf5			liblqr			msgpack			protobuf		webp
+    # dnsmasq			hopenpgp-tools		libmatio		mtr			pyenv			wget
+    # docbook			htop			libmpc			mujs			python@3.7		x264
+    # docbook-xsl		hwloc			libogg			mysql			python@3.8		x265
+    # emacs			icu4c			libomp			nasm			qt			xmlto
+    # fd			ilmbase			libpng			ncurses			rav1e			xvid
+    # ffmpeg			imagemagick		libpq			netpbm			readline		xz
+    # fftw			imlib2			librsvg			nettle			ripgrep			yarn
+    # flac			intltool		libsamplerate		nghttp2			rtmpdump		yasm
+    # fltk			isl			libsndfile		nginx			rubberband		ykman
+    # fontconfig		itstool			libsoxr			ninja			rust			ykpers
+    # freetype		jansson			libssh2			nmap			scons			youtube-dl
+    # frei0r			jasper			libtasn1		node			sdl2			zimg
+    # fribidi			jemalloc		libtermkey		npth			shared-mime-info	zstd
 
-	echo ""
-	echo "installing devenv tooling"
-	brew install python3
-	brew install yarn
-	brew install nginx
-	brew install postgres
-	brew install terraform
-	brew install packer
-	brew install consul
-	brew install gnuplot
+    echo ""
+    echo "installing CLI tools"
+    brew install \
+        fzf \
+        jq \
+        neovim \
+        ripgrep \
+        terminal-notifier \
+        tmux
 
-	echo ""
-	echo "installing security-related software"
-	brew install gnupg
-	brew install yubikey-personalization
-	brew install hopenpgp-tools
-	brew install ykman
+    echo ""
+    echo "installing devenv tooling"
+    brew install \
+        consul \
+        gnuplot \
+        nginx \
+        packer \
+        postgres \
+        python3 \
+        terraform \
+        yarn
+
+    echo ""
+    echo "installing security-related software"
+    brew install \
+        gnupg \
+        hopenpgp-tools \
+        ykman \
+        yubikey-personalization
 fi
 
 echo ""
 read -p "configure YubiKey for GPG? (y/n) " should_setup_yubikey
 if [ $should_setup_yubikey = "y" ]; then
-	read -p "press enter when YubiKey is plugged in"
+    read -p "press enter when YubiKey is plugged in"
 
-	echo ""
-	read -p "enter GPG key ID: " KEYID
+    echo ""
+    read -p "enter GPG key ID: " KEYID
 
-	echo "fetching public key for $KEYID..."
-	gpg --recv $KEYID
+    echo "fetching public key for $KEYID..."
+    gpg --recv $KEYID
 
-	echo ""
-	echo "------------------------------------------------------"
-	echo "editing imported key..."
-	echo "- run 'trust' & select '5' to ultimately trust the key"
-	echo "- run 'quit' to exit"
-	echo "------------------------------------------------------"
-	echo ""
-	gpg --edit-key $KEYID
+    echo ""
+    echo "------------------------------------------------------"
+    echo "editing imported key..."
+    echo "- run 'trust' & select '5' to ultimately trust the key"
+    echo "- run 'quit' to exit"
+    echo "------------------------------------------------------"
+    echo ""
+    gpg --edit-key $KEYID
 
-	echo ""
-	echo "installing temporary gpg and gpg-agent configs"
-	curl -so $HOME/.gnupg/gpg.conf https://raw.githubusercontent.com/westrik/.dotfiles/master/gpg.conf
-	curl -so $HOME/.gnupg/gpg-agent.conf https://raw.githubusercontent.com/westrik/.dotfiles/master/gpg-agent.conf
+    echo ""
+    echo "installing temporary gpg and gpg-agent configs"
+    curl -so $HOME/.gnupg/gpg.conf https://raw.githubusercontent.com/westrik/.dotfiles/master/gpg.conf
+    curl -so $HOME/.gnupg/gpg-agent.conf https://raw.githubusercontent.com/westrik/.dotfiles/master/gpg-agent.conf
 fi
 
 echo ""
 read -p "reset Dock to custom defaults? (y/n): " should_clear_dock
 if [ $should_clear_dock = "y" ]; then
-	echo ""
-	echo "clearing Dock"
-	defaults write com.apple.dock persistent-apps -array
+    echo ""
+    echo "clearing Dock"
+    defaults write com.apple.dock persistent-apps -array
 
-	echo ""
-	for app in Firefox Telegram CLion iTerm Spotify Sketch OmniGraffle; do
-		echo "adding $app to Dock"
-		defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/$app.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
-	done
+    echo ""
+    for app in Safari Firefox Telegram iTerm CLion Insomnia Spotify Sketch OmniGraffle NetNewsWire; do
+        echo "adding $app to Dock"
+        defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/$app.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+    done
 fi
 
 echo ""
@@ -221,50 +269,44 @@ gpg-connect-agent updatestartuptty /bye > /dev/null
 gpgconf --launch gpg-agent
 
 if [ ! -d "$DOTFILES_FOLDER" ]; then
-	echo ""
-	echo "installing dotfiles"
-	cd $HOME
-	git clone --recurse-submodules -j8 git@github.com:westrik/.dotfiles.git
+    echo ""
+    echo "installing dotfiles"
+    cd $HOME
+    git clone --recurse-submodules -j8 git@github.com:westrik/.dotfiles.git
 
-	# if gpg.conf or gpg-agent.conf exist and are not symlinks, delete them
-	if [ ! -L "$HOME/.gnupg/gpg.conf" ]; then
-		echo "deleting temporary gpg.conf"
-		rm -f $HOME/.gnupg/gpg.conf
-	fi
-	if [ ! -L "$HOME/.gnupg/gpg-agent.conf" ]; then
-		echo "deleting temporary gpg-agent.conf"
-		rm -f $HOME/.gnupg/gpg-agent.conf
-	fi
+    # if gpg.conf or gpg-agent.conf exist and are not symlinks, delete them
+    if [ ! -L "$HOME/.gnupg/gpg.conf" ]; then
+        echo "deleting temporary gpg.conf"
+        rm -f $HOME/.gnupg/gpg.conf
+    fi
+    if [ ! -L "$HOME/.gnupg/gpg-agent.conf" ]; then
+        echo "deleting temporary gpg-agent.conf"
+        rm -f $HOME/.gnupg/gpg-agent.conf
+    fi
 
-	bash .dotfiles/setup.sh
+    bash .dotfiles/setup.sh
 fi
 
 echo ""
 echo "syncing all GitHub repos"
 if [ ! -f "$SECRETS_FILE" ]; then
-	read -p "enter a GitHub personal access token: " github_token
-	echo "export GITHUB_API_TOKEN=\"$github_token\"" > "$SECRETS_FILE"
+    read -p "enter a GitHub personal access token: " github_token
+    echo "export GITHUB_API_TOKEN=\"$github_token\"" > "$SECRETS_FILE"
 fi
 source "$SECRETS_FILE"
 $HOME/.local/bin/ghsync
-
-# set up services
-echo ""
-echo "adding local sites to /etc/hosts"
-if ! grep -q 'westrik' /etc/hosts; then
-	echo "127.0.0.1 westrik.world" | sudo tee -a /etc/hosts >/dev/null
-	echo "127.0.0.1 api.westrik.world" | sudo tee -a /etc/hosts >/dev/null
-fi
-
 
 echo ""
 echo "copying nginx.conf to /usr/local/etc/nginx/"
 sudo cp "$DOTFILES_FOLDER/configs/nginx.conf" "/usr/local/etc/nginx/nginx.conf"
 
 echo ""
-echo "(re)starting nginx"
-sudo mkdir -p /Library/Logs/nginx/
-sudo brew services restart nginx
+echo "Remember to copy over nginx config files for services, then restart nginx"
+
+# echo ""
+# echo "(re)starting nginx"
+# sudo mkdir -p /Library/Logs/nginx/
+# sudo brew services restart nginx
 
 echo ""
 echo "(re)starting postgres"
