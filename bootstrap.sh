@@ -47,7 +47,7 @@ if [ $should_install = "y" ]; then
         spectacle \
         telegram \
         transmit \
-        vlc
+        mpv
         # not installed right now: keepassxc
     brew cask install --force \
         istat-menus \
@@ -64,6 +64,10 @@ if [ $should_install = "y" ]; then
         tmux
 
     echo ""
+    echo "configuring homebrew taps"
+    brew tap aws/tap
+
+    echo ""
     echo "installing devenv tools"
     brew install \
         aws-sam-cli \
@@ -76,6 +80,7 @@ if [ $should_install = "y" ]; then
         graphviz \
         openssl@1.1 \
         packer \
+        pyenv \
         python3 \
         terraform \
         webp \
@@ -102,6 +107,7 @@ if [ $should_install = "y" ]; then
     brew install \
         gnupg \
         hopenpgp-tools \
+        pinentry-mac \
         ykman \
         yubikey-personalization
 
@@ -121,7 +127,7 @@ if [ $should_setup_yubikey = "y" ]; then
     read -p "enter GPG key ID: " KEYID
 
     echo "fetching public key for $KEYID..."
-    gpg --recv $KEYID
+    gpg --keyserver hkp://keys.gnupg.net:80 --recv $KEYID
 
     echo ""
     echo "------------------------------------------------------"
