@@ -74,6 +74,7 @@ if [ $should_install = "y" ]; then
         awscli \
         binaryen \
         cmake \
+	fd \
         flatbuffers \
         git \
         gnuplot \
@@ -83,6 +84,7 @@ if [ $should_install = "y" ]; then
         pyenv \
         python3 \
         terraform \
+	tokei \
         webp \
         yarn
         # not installed for now: llvm, swiftlint
