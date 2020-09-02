@@ -300,17 +300,14 @@ source "$SECRETS_FILE"
 $HOME/.local/bin/ghsync
 
 echo ""
+echo "(re)starting postgres"
+brew services restart postgresql
+
+echo ""
 echo "copying nginx.conf to /usr/local/etc/nginx/"
 sudo cp "$DOTFILES_FOLDER/configs/nginx.conf" "/usr/local/etc/nginx/nginx.conf"
 
 echo ""
-echo "Remember to copy over nginx config files for services, then restart nginx"
-
-# echo ""
-# echo "(re)starting nginx"
-# sudo mkdir -p /Library/Logs/nginx/
-# sudo brew services restart nginx
-
-echo ""
-echo "(re)starting postgres"
-brew services restart postgresql
+echo "(re)starting nginx"
+sudo mkdir -p /Library/Logs/nginx/
+sudo brew services restart nginx
