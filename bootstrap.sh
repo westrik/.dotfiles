@@ -36,6 +36,7 @@ if [ $should_install = "y" ]; then
     echo "installing Mac apps"
     brew cask install \
         alfred \
+        chromium \
         clion \
         firefox \
         insomnia \
@@ -56,9 +57,15 @@ if [ $should_install = "y" ]; then
     echo ""
     echo "installing CLI tools"
     brew install \
+        bandwhich \
+        dust \
+        exa \
         fzf \
+        grex \
+        hyperfine \
         jq \
         neovim \
+        procs \
         ripgrep \
         terminal-notifier \
         tmux
@@ -70,11 +77,12 @@ if [ $should_install = "y" ]; then
     echo ""
     echo "installing devenv tools"
     brew install \
+        ansible \
         aws-sam-cli \
         awscli \
         binaryen \
         cmake \
-	fd \
+        fd \
         flatbuffers \
         git \
         gnuplot \
@@ -84,7 +92,7 @@ if [ $should_install = "y" ]; then
         pyenv \
         python3 \
         terraform \
-	tokei \
+        tokei \
         webp \
         yarn
         # not installed for now: llvm, swiftlint
