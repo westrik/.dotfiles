@@ -64,11 +64,11 @@ if [ $should_install = "y" ]; then
         grex \
         hyperfine \
         jq \
-        neovim \
         procs \
         ripgrep \
         terminal-notifier \
         tmux
+    brew install --head neovim
 
     echo ""
     echo "configuring homebrew taps"
