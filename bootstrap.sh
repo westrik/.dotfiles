@@ -82,6 +82,7 @@ if [ $should_install = "y" ]; then
         awscli \
         binaryen \
         cmake \
+	llvm \
         fd \
         flatbuffers \
         git \
@@ -95,7 +96,7 @@ if [ $should_install = "y" ]; then
         tokei \
         webp \
         yarn
-        # not installed for now: llvm, swiftlint
+        # not installed for now: swiftlint
 
     echo ""
     echo "installing devenv services"
