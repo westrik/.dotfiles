@@ -97,6 +97,7 @@ if [ $should_install = "y" ]; then
         webp \
         yarn
         # not installed for now: swiftlint
+    yarn global add @cloudflare/wrangler
 
     echo ""
     echo "installing devenv services"

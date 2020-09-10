@@ -31,6 +31,7 @@ setopt histignorespace
 
 # PATH SETUP
 # -----------------------------------------------------------------------
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.fastlane/bin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
@@ -52,6 +53,8 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpg-connect-agent updatestartuptty /bye > /dev/null
 gpgconf --launch gpg-agent
 
+# fix Python libc issue
+export DYLD_LIBRARY_PATH=/usr/lib:$DYLD_LIBRARY_PATH
 # fix Python OpenSSL on Catalina
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
