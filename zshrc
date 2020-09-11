@@ -34,6 +34,7 @@ setopt histignorespace
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.fastlane/bin:$PATH"
+export PATH="$HOME/Library/Python/3.8/bin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="/usr/local/Cellar/mtr/0.93_1/sbin:$PATH"
 eval "$(pyenv init -)"

@@ -82,7 +82,7 @@ if [ $should_install = "y" ]; then
         awscli \
         binaryen \
         cmake \
-	llvm \
+        llvm \
         fd \
         flatbuffers \
         git \
@@ -93,6 +93,8 @@ if [ $should_install = "y" ]; then
         pyenv \
         python3 \
         terraform \
+        terrascan \
+        tflint \
         tokei \
         webp \
         yarn

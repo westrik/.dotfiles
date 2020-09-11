@@ -30,6 +30,7 @@ fi
 
 
 pip3 install --user --upgrade pip wheel neovim
+pip3 install --user --upgrade ansible-lint yamllint
 
 scripts_bin=$HOME/.local/bin
 mkdir -p $scripts_bin
