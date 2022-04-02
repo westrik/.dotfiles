@@ -26,114 +26,17 @@ if [ $should_install = "y" ]; then
     if ! command -v brew >/dev/null 2>&1; then
         echo ""
         echo "installing Homebrew"
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-    echo ""
-    echo "installing homebrew cask"
-    brew install cask
 
-    echo ""
-    echo "installing Mac apps"
-    brew cask install \
-        alfred \
-        chromium \
-        clion \
-        firefox \
-        insomnia \
-        iterm2 \
-        netnewswire \
-        omnigraffle \
-        sketch \
-        skim \
-        spectacle \
-        telegram \
-        transmit \
-        mpv
-        # not installed right now: keepassxc
-    brew cask install --force \
-        istat-menus \
-        spotify
-
-    echo ""
-    echo "installing CLI tools"
-    brew install \
-        bandwhich \
-        dust \
-        exa \
-        fzf \
-        grex \
-        hyperfine \
-        jq \
-        procs \
-        ripgrep \
-        terminal-notifier \
-        tmux
-    brew install --head neovim
-
-    echo ""
-    echo "configuring homebrew taps"
-    brew tap aws/tap
-
-    echo ""
-    echo "installing devenv tools"
-    brew install \
-        ansible \
-        aws-sam-cli \
-        awscli \
-        binaryen \
-        cmake \
-        llvm \
-        fd \
-        flatbuffers \
-        git \
-        gnuplot \
-        graphviz \
-        openssl@1.1 \
-        packer \
-        pyenv \
-        python3 \
-        terraform \
-        terrascan \
-        tflint \
-        tokei \
-        webp \
-        yarn
-        # not installed for now: swiftlint
-    yarn global add @cloudflare/wrangler
-
-    echo ""
-    echo "installing devenv services"
-    brew install \
-        consul \
-        dnsmasq \
-        minio/stable/minio \
-        nginx
-
-    echo ""
-    echo "installing databases"
-    brew install \
-        mysql \
-        postgres \
-        sqlite
-
-    echo ""
-    echo "installing security-related software"
-    brew install \
-        gnupg \
-        hopenpgp-tools \
-        pinentry-mac \
-        ykman \
-        yubikey-personalization
-
-    echo ""
-    echo "installing other software"
-    brew install \
-        borgbackup \
-        youtube-dl
+    # TODO: download Brewfile from github to tempfile
+    exit 1
+    # brew bundle --file ${DOTFILES_FOLDER}/Brewfile
+    #yarn global add @cloudflare/wrangler
 fi
 
 echo ""
-read -p "configure YubiKey for GPG? (y/n) " should_setup_yubikey
+read "configure YubiKey for GPG? (y/n) " should_setup_yubikey
 if [ $should_setup_yubikey = "y" ]; then
     read -p "press enter when YubiKey is plugged in"
 
@@ -141,7 +44,7 @@ if [ $should_setup_yubikey = "y" ]; then
     read -p "enter GPG key ID: " KEYID
 
     echo "fetching public key for $KEYID..."
-    gpg --keyserver hkp://keys.gnupg.net:80 --recv $KEYID
+    gpg --keyserver keyserver.ubuntu.com --recv $KEYID
 
     echo ""
     echo "------------------------------------------------------"
@@ -193,6 +96,12 @@ defaults write com.apple.dock mineffect scale
 echo "- don't show recent apps in Dock"
 defaults write com.apple.dock show-recents 0
 
+echo "- don't reorder spaces by most recently used"
+defaults write com.apple.dock "mru-spaces" -bool "false"
+
+echo "- set default document type in TextEdit to plain text"
+defaults write com.apple.TextEdit "RichText" -bool "false"
+
 echo "- always show scrollbars"
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
@@ -222,14 +131,14 @@ echo "- require password immediately after sleep / screensaver"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-echo "- show external drives on the desktop"
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-
 echo "- save files locally by default (not to iCloud)"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 echo "- show all extensions"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+echo "- show external drives on the desktop"
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 
 echo "- show the status bar in Finder"
 defaults write com.apple.finder ShowStatusBar -bool true

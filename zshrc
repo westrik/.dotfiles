@@ -33,20 +33,9 @@ setopt histignorespace
 # -----------------------------------------------------------------------
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.fastlane/bin:$PATH"
-export PATH="$HOME/Library/Python/3.8/bin:$PATH"
-export PATH="/usr/local/opt/curl/bin:$PATH"
-export PATH="/usr/local/Cellar/mtr/0.93_1/sbin:$PATH"
+export PATH="/opt/homebrew/opt/gnupg@2.2/bin:$PATH"
 eval "$(pyenv init -)"
-
-# export PATH=~/_/scratch/fuchsia/.jiri_root/bin:$PATH
-# source ~/_/scratch/fuchsia/scripts/fx-env.sh
-#
-# export LIBGS="$(brew --prefix ghostscript)/lib/libgs.9.dylib"
-
-export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
-
-
+eval "$(pyenv virtualenv-init -)"
 
 # use gpg-agent for SSH
 export GPG_TTY=$(tty)
@@ -55,9 +44,9 @@ gpg-connect-agent updatestartuptty /bye > /dev/null
 gpgconf --launch gpg-agent
 
 # fix Python libc issue
-export DYLD_LIBRARY_PATH=/usr/lib:$DYLD_LIBRARY_PATH
+#export DYLD_LIBRARY_PATH=/usr/lib:$DYLD_LIBRARY_PATH
 # fix Python OpenSSL on Catalina
-export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_FALLBACK_LIBRARY_PATH
+#export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
 # make homebrew more secure
 export HOMEBREW_NO_ANALYTICS=1 
@@ -97,6 +86,23 @@ warn_alias() {
 cheat() {
 	curl "cheat.sh/$1?style=bw"
 }
+
+# TODO: add to prompt (https://lobste.rs/s/qgqssl/what_are_most_useful_aliases_your_bashrc#c_xa98gj)
+#  prompt_show_ec () {
+#    # Catch exit code
+#    ec=$?
+#    # Display exit code in red text unless zero
+#    if [ $ec -ne 0 ];then
+#      echo -e "\033[31;1m[$ec]\033[0m"
+#    fi
+#  }
+#
+# OR:
+#
+#  colored_exit_code() {
+#    echo "%(?..${nl}%F{8}exit %F{1}%?)%f"
+#  }
+#  custom_prompt_exit='$(colored_exit_code)'
 
 
 # commands
@@ -143,6 +149,9 @@ alias dnsflush='dscacheutil -flushcache'
 alias dockspace="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 alias spellcheck='aspell --dont-backup check'
 alias chromescrot='chrome --headless --disable-gpu --screenshot'
+#alias random_id_word="grep -x '[a-z].\{4,7\}' /usr/share/dict/words | shuf -n \${NUM_WORDS:-3} | paste -sd '-' -"
+alias random_id_word="grep -x '[a-z].\{4,7\}' ~/_/data/bip-0039-english.txt | shuf -n \${NUM_WORDS:-3} | paste -sd '-' -"
+alias random_id_common_word="grep -x '[a-z].\{4,7\}' ~/_/data/mit.10000.words.txt | shuf -n \${NUM_WORDS:-3} | paste -sd '-' -"
 writecheck() {
 	file_to_check="$1"
 	echo "$(color cyan 'spellcheck')"
@@ -253,7 +262,6 @@ alias cpr='(remind_alias cpr)
 
 # yarn
 alias yr='yarn run'
-alias fukjs='rm -rf node_modules;yarn install'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -267,3 +275,20 @@ export WASMER_DIR="/Users/matt/.wasmer"
 export WASMTIME_HOME="$HOME/.wasmtime"
 
 export PATH="$WASMTIME_HOME/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PICO_SDK_PATH="$HOME/_/extsrc/pico-sdk"
+
+# opam configuration
+[[ ! -r /Users/matt/.opam/opam-init/init.zsh ]] || source /Users/matt/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk/Contents/Home
+
+alias k='kubectl'
+source <(kubectl completion zsh)
+source <(helm completion zsh) # or run `helm completion zsh > "${fpath[1]}/_helm"`
+
+

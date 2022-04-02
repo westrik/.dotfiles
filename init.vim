@@ -44,7 +44,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 
   " LSP
-  Plug 'neovim/nvim-lsp'
+  "Plug 'neovim/nvim-lsp'
 call plug#end()
 
 
@@ -108,7 +108,7 @@ function! LSPUpdate()
   LspInstall tsserver
 endfunction
 
-call LSPSetup()
+"call LSPSetup()
 
 autocmd Filetype \
       \bash,
