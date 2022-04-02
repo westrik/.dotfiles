@@ -1,7 +1,7 @@
 [user]
 	name = Matt Westrik
 	email = m@ttwestrik.com
-	signingkey = 0xF47BF0EB0C8E302F
+	#signingkey = 0xF47BF0EB0C8E302F
 [alias]
 	lg = log --color --graph --pretty
 	ci = commit
@@ -19,8 +19,8 @@
 	autocorrect = 1
 [push]
 	default = simple
-[commit]
-	gpgsign = true
+#[commit]
+	#gpgsign = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

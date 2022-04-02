@@ -28,6 +28,10 @@ if ! command -v cargo >/dev/null 2>&1; then
 	curl https://sh.rustup.rs -sSf | sh
 fi
 
+# Haskell toolchain
+if ! command -v stack >/dev/null 2>&1; then
+	brew install --HEAD stack
+fi
 
 pip3 install --user --upgrade pip wheel neovim
 pip3 install --user --upgrade ansible-lint yamllint

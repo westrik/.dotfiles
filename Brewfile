@@ -1,0 +1,96 @@
+brew "mas"
+tap "aws/tap"
+
+# CLI tools
+brew "bandwhich"
+brew "borgbackup"
+brew "coreutils"
+brew "dust"
+brew "exa"
+brew "fd"
+brew "fzf"
+brew "git"
+brew "gnuplot"
+brew "graphviz"
+brew "grex"
+brew "hyperfine"
+brew "jq"
+brew "mdcat"
+brew "moreutils"
+brew "neovim", head: true
+brew "nmap"
+brew "procs"
+brew "ripgrep"
+brew "terminal-notifier"
+brew "tmux"
+brew "tokei"
+brew "youtube-dl"
+
+# Security tools
+brew "gnupg"
+brew "hopenpgp-tools"
+brew "pinentry-mac"
+brew "ykman"
+brew "yubikey-personalization"
+
+# Dev environment tools
+brew "ansible"
+brew "aws-sam-cli"
+brew "awscli"
+brew "binaryen"
+brew "cmake"
+brew "consul"
+brew "dnsmasq"
+brew "flatbuffers"
+brew "llvm"
+brew "nginx"
+brew "openssl@1.1"
+brew "packer"
+brew "pyenv"
+brew "pyenv-virtualenv"
+brew "terraform"
+brew "terrascan"
+brew "tflint"
+brew "webp"
+brew "yarn"
+brew "mysql"
+brew "postgres"
+brew "sqlite"
+
+# containers
+brew "ctop"
+brew "helm"
+brew "derailed/k9s/k9s"
+# not installed for now:
+# brew "swiftlint"
+
+# Embedded tooling
+tap "ArmMbed/homebrew-formulae"
+brew "arm-none-eabi-gcc"
+brew "minicom"
+
+# macOS applications
+mas "1Password", id: 443987910
+cask "alfred"
+cask "blender"
+cask "chromium"
+cask "clion"
+cask "firefox"
+cask "godot"
+cask "insomnia"
+cask "iterm2"
+cask "mpv"
+cask "netnewswire"
+cask "omnigraffle"
+cask "pycharm"
+cask "rectangle"
+cask "sketch"
+cask "skim"
+cask "solvespace"
+cask "telegram"
+cask "transmit"
+cask "visual-studio-code"
+cask "istat-menus", force: true
+cask "spotify", force: true
+# not installed right now:
+# cask "keepassxc"
